@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Map;
+
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {NotFoundException.class, ResourceNotFoundException.class})
     protected ResponseEntity<Object> handle404(RuntimeException ex, WebRequest request) {
         String message = ex.getMessage();
-        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(Map.of("error", message), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {BadRequestException.class, IllegalArgumentException.class})
     protected ResponseEntity<Object> handle500(RuntimeException ex, WebRequest request) {
         String message = ex.getMessage();
-        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(Map.of("error", message), HttpStatus.BAD_REQUEST);
     }
 }

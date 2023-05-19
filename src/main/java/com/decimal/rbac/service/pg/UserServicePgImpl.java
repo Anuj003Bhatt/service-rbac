@@ -1,10 +1,17 @@
 package com.decimal.rbac.service.pg;
 
+import com.decimal.rbac.constants.ErrorMessage;
+import com.decimal.rbac.exceptions.BadRequestException;
 import com.decimal.rbac.exceptions.NotFoundException;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
+import com.decimal.rbac.model.projections.UserId;
+import com.decimal.rbac.model.rest.AddUser;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
+import jakarta.transaction.Transactional;
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +25,40 @@ public class UserServicePgImpl implements UserService {
 
     public UserServicePgImpl(UserRepository userRepository){
         this.userRepository = userRepository;
+    }
+
+    @Override
+    public UserDto addUser(AddUser user) {
+        try {
+            return userRepository.save(user.toDataModelObject()).toDto();
+        } catch (DataIntegrityViolationException ex) {
+            String constraintName = ((ConstraintViolationException) ex.getCause()).getConstraintName();
+            if (ErrorMessage.INTEGRITY_CONSTRAINT_VIOLATION.containsKey(constraintName)) {
+                throw new BadRequestException(ErrorMessage.INTEGRITY_CONSTRAINT_VIOLATION.get(constraintName));
+            } else {
+                throw ex;
+            }
+
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void disableUser(UUID id) {
+        UserId user = userRepository.findById(id, UserId.class).orElseThrow(
+                () -> new BadRequestException("No user found for id %s", id)
+        );
+        userRepository.disableUser(user.getId());
+    }
+
+    @Override
+    @Transactional
+    public void enableUser(UUID id) {
+        UserId user = userRepository.findById(id, UserId.class).orElseThrow(
+                () -> new BadRequestException("No user found for id %s", id)
+        );
+        userRepository.enableUser(user.getId());
     }
 
     @Override

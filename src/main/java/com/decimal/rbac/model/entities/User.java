@@ -36,8 +36,11 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "status")
+    @Column(name = "status", columnDefinition = "boolean default true")
     private Status status;
+
+    @Column(name = "password")
+    private String password;
 
     @ManyToMany
     @JoinTable(
@@ -60,8 +63,8 @@ public class User {
                 username,
                 id,
                 status,
-                userRoles.stream().map(Role::toDto).toList(),
-                userGroups.stream().map(UserGroup::toDto).toList()
+                (userRoles != null)?userRoles.stream().map(Role::toDto).toList():null,
+                (userGroups != null)?userGroups.stream().map(UserGroup::toDto).toList():null
         );
     }
 }

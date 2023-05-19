@@ -19,7 +19,7 @@ public class StatusAttributeConverter implements AttributeConverter<Status, Bool
      */
     @Override
     public Boolean convertToDatabaseColumn(Status status) {
-        return status.isActive();
+        return (status != null)?status.isActive():null;
     }
 
     /**

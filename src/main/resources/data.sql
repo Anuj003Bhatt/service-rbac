@@ -1,13 +1,13 @@
 INSERT INTO
-PLATFORM_USERS(user_id, username) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'user1'),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'user2'),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'user3'),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'user4'),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'user5'),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'user6'),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'user7'),
-('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID, 'user8');
+PLATFORM_USERS(user_id, username, password) VALUES
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'user1', 'password1'),
+('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'user2', 'password2'),
+('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'user3', 'password3'),
+('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'user4', 'password4'),
+('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'user5', 'password5'),
+('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'user6', 'password6'),
+('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'user7', 'password7'),
+('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID, 'user8', 'password8');
 
 INSERT INTO
 ROLES(role_id, role_name, description) VALUES
