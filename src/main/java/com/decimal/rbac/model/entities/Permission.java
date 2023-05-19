@@ -1,15 +1,18 @@
 package com.decimal.rbac.model.entities;
 
-import com.decimal.rbac.model.entities.constants.PermissionType;
+import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.model.dtos.PermissionDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -22,6 +25,8 @@ import java.util.UUID;
 public class Permission {
     @Id
     @Column(name = "permission_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @UuidGenerator
     private UUID id;
 
     @Column(name = "permission_name")

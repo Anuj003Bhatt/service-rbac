@@ -19,7 +19,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = {BadRequestException.class})
+    @ExceptionHandler(value = {BadRequestException.class, IllegalArgumentException.class})
     protected ResponseEntity<Object> handle500(RuntimeException ex, WebRequest request) {
         String message = ex.getMessage();
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);

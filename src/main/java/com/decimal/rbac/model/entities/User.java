@@ -1,22 +1,21 @@
 package com.decimal.rbac.model.entities;
 
 import com.decimal.rbac.model.dtos.UserDto;
-import com.decimal.rbac.model.entities.constants.Status;
-import jakarta.persistence.Basic;
+import com.decimal.rbac.model.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.PostLoad;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +29,8 @@ import java.util.UUID;
 public class User {
     @Id
     @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @UuidGenerator
     private UUID id;
 
     @Column(name = "username")
@@ -46,12 +47,21 @@ public class User {
     )
     private List<Role> userRoles;
 
+    @ManyToMany
+    @JoinTable(
+            name = "USER_GROUP_USERS",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_group_id")
+    )
+    private List<UserGroup> userGroups;
+
     public UserDto toDto(){
         return new UserDto(
                 username,
                 id,
                 status,
-                userRoles.stream().map(Role::toDto).toList()
+                userRoles.stream().map(Role::toDto).toList(),
+                userGroups.stream().map(UserGroup::toDto).toList()
         );
     }
 }

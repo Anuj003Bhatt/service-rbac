@@ -1,6 +1,6 @@
 package com.decimal.rbac.model.dtos;
 
-import com.decimal.rbac.model.entities.constants.Status;
+import com.decimal.rbac.model.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,4 +18,5 @@ public class UserDto {
     private UUID id;
     private Status status;
     private List<RoleDto> roles;
+    private List<UserGroupDto> userGroups;
 }

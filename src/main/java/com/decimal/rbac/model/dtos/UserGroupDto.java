@@ -12,9 +12,9 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleDto {
+public class UserGroupDto {
     private UUID id;
     private String name;
     private String description;
-    private List<PermissionDto> rolePermissions;
+    private List<RoleDto> groupRoles;
 }
