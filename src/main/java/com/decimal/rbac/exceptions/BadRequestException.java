@@ -20,4 +20,9 @@ public class BadRequestException extends RuntimeException{
         this.message = message;
     }
 
+    public BadRequestException(String message, Object...args) {
+        super(message.formatted(args));
+        this.message = message.formatted(args);
+    }
+
 }

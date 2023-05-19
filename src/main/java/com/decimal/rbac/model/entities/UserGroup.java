@@ -1,6 +1,6 @@
 package com.decimal.rbac.model.entities;
 
-import com.decimal.rbac.model.dtos.RoleDto;
+import com.decimal.rbac.model.dtos.UserGroupDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,37 +24,36 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ROLES")
-public class Role {
+@Table(name = "USER_GROUPS")
+public class UserGroup {
     @Id
-    @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @UuidGenerator
+    @Column(name = "user_group_id")
     private UUID id;
 
-    @Column(name = "role_name")
+    @Column(name = "user_group_name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "userRoles")
-    private List<User> users;
-
     @ManyToMany
     @JoinTable(
-            name = "ROLE_PERMISSION_ASSOCIATIONS",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
+            name = "USER_GROUP_ROLE_ASSOCIATIONS",
+            joinColumns = @JoinColumn(name = "user_group_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Permission> rolePermissions;
+    private List<Role> groupRoles;
 
-    public RoleDto toDto() {
-        return new RoleDto(
-                id,
-                name,
-                description,
-                rolePermissions.stream().map(Permission::toDto).toList()
+    public UserGroupDto toDto() {
+        return new UserGroupDto(
+          id,
+          name,
+          description,
+          groupRoles.stream().map(Role::toDto).toList()
         );
     }
+
+
 }

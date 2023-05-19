@@ -1,10 +1,12 @@
 package com.decimal.rbac.controller;
 
-import com.decimal.rbac.model.entities.constants.PermissionType;
+import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.model.dtos.PermissionDto;
 import com.decimal.rbac.service.PermissionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,4 +43,10 @@ public class PermissionsController {
                 types.stream().map(it -> PermissionType.valueOf(it.toUpperCase())).toList()
         );
     }
+
+    @PostMapping
+    public PermissionDto createPermission(@RequestBody PermissionDto permission) {
+        return permissionService.create(permission);
+    }
+
 }

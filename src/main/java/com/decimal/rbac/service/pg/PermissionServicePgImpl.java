@@ -1,6 +1,6 @@
 package com.decimal.rbac.service.pg;
 
-import com.decimal.rbac.model.entities.constants.PermissionType;
+import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.service.PermissionService;
 import com.decimal.rbac.exceptions.NotFoundException;
 import com.decimal.rbac.model.dtos.PermissionDto;
@@ -18,6 +18,11 @@ public class PermissionServicePgImpl implements PermissionService {
 
     public PermissionServicePgImpl(PermissionRepository repository) {
         this.permissionRepository = repository;
+    }
+
+    @Override
+    public PermissionDto create(PermissionDto permission) {
+        return permissionRepository.save(permission.toDataModelObject()).toDto();
     }
 
     @Override
@@ -44,7 +49,7 @@ public class PermissionServicePgImpl implements PermissionService {
     @Override
     public List<PermissionDto> getPermissionByAccessTypes(List<PermissionType> permissionTypes) {
         return StreamSupport.stream(
-                permissionRepository.findByAccessTypeIn(permissionTypes/*.stream().map(it -> it.getAccess()).toList()*/).spliterator(),
+                permissionRepository.findByAccessTypeIn(permissionTypes).spliterator(),
                 false
         ).map(Permission::toDto).toList();
     }
