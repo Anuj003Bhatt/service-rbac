@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,6 +58,20 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "user_group_id")
     )
     private List<UserGroup> userGroups;
+
+    public Boolean hasRole(Role role) {
+        if (userRoles == null || userRoles.isEmpty()) {
+            return false;
+        }
+        return userRoles.stream().anyMatch(u -> u.getId() == role.getId());
+    }
+
+    public void addRole(Role role) {
+        if (userRoles == null) {
+            this.userRoles = new ArrayList<>();
+        }
+        this.userRoles.add(role);
+    }
 
     public UserDto toDto(){
         return new UserDto(

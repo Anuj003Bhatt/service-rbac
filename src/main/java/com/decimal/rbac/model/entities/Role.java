@@ -16,8 +16,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -49,12 +51,19 @@ public class Role {
     )
     private List<Permission> rolePermissions;
 
+    public Boolean hasUser(User user) {
+        if (users == null || users.isEmpty()) {
+            return false;
+        }
+        return users.stream().anyMatch(u -> u.getId() == user.getId());
+    }
+
     public RoleDto toDto() {
         return new RoleDto(
                 id,
                 name,
                 description,
-                rolePermissions.stream().map(Permission::toDto).toList()
+                (rolePermissions != null)?rolePermissions.stream().map(Permission::toDto).toList():null
         );
     }
 }
