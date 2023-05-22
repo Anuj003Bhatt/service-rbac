@@ -47,7 +47,7 @@ public class UserServicePgImpl implements UserService {
     @Transactional
     public void disableUser(UUID id) {
         UserId user = userRepository.findById(id, UserId.class).orElseThrow(
-                () -> new BadRequestException("No user found for id %s", id)
+                () -> new NotFoundException("No user found for id %s", id)
         );
         userRepository.disableUser(user.getId());
     }
@@ -56,7 +56,7 @@ public class UserServicePgImpl implements UserService {
     @Transactional
     public void enableUser(UUID id) {
         UserId user = userRepository.findById(id, UserId.class).orElseThrow(
-                () -> new BadRequestException("No user found for id %s", id)
+                () -> new NotFoundException("No user found for id %s", id)
         );
         userRepository.enableUser(user.getId());
     }
