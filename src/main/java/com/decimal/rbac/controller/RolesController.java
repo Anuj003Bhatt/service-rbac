@@ -1,7 +1,7 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.RoleDto;
-import com.decimal.rbac.model.rest.AddRole;
+import com.decimal.rbac.model.rest.request.AddRole;
 import com.decimal.rbac.service.RoleService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

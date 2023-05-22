@@ -1,4 +1,4 @@
-package com.decimal.rbac.model.rest;
+package com.decimal.rbac.model.rest.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

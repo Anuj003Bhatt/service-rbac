@@ -3,7 +3,7 @@ package com.decimal.rbac.service.pg;
 import com.decimal.rbac.exceptions.NotFoundException;
 import com.decimal.rbac.model.dtos.RoleDto;
 import com.decimal.rbac.model.entities.Role;
-import com.decimal.rbac.model.rest.AddRole;
+import com.decimal.rbac.model.rest.request.AddRole;
 import com.decimal.rbac.repositories.RoleRepository;
 import com.decimal.rbac.service.RoleService;
 import org.springframework.stereotype.Service;

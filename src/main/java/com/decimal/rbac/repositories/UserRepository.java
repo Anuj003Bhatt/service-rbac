@@ -1,6 +1,7 @@
 package com.decimal.rbac.repositories;
 
 import com.decimal.rbac.model.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -8,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByUsername(String name);
 
     <T> Optional<T> findById(UUID id, Class<T> type);

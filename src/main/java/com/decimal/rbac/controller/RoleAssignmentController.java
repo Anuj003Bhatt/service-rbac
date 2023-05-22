@@ -1,9 +1,7 @@
 package com.decimal.rbac.controller;
 
-import com.decimal.rbac.model.dtos.RoleDto;
-import com.decimal.rbac.model.rest.RoleAssignmentRequest;
+import com.decimal.rbac.model.rest.request.RoleAssignmentRequest;
 import com.decimal.rbac.service.RoleAssignmentService;
-import com.decimal.rbac.service.RoleService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

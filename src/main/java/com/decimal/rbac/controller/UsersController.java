@@ -1,9 +1,13 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.UserDto;
-import com.decimal.rbac.model.rest.AddUser;
+import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.response.ListUserResponse;
 import com.decimal.rbac.service.UserService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,9 +30,18 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping
+//    @GetMapping
     public List<UserDto> listAllUsers(){
         return userService.listAllUsers();
+    }
+
+    @GetMapping
+    public ListUserResponse getUsersPage(
+            @PageableDefault(size = 20)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+            }) Pageable pageable){
+        return userService.getPaginated(pageable);
     }
 
     @GetMapping("/_byId/{id}")

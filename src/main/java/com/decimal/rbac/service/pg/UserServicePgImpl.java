@@ -6,15 +6,19 @@ import com.decimal.rbac.exceptions.NotFoundException;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.projections.UserId;
-import com.decimal.rbac.model.rest.AddUser;
+import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.response.ListUserResponse;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
 import jakarta.transaction.Transactional;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.StreamSupport;
 
@@ -67,6 +71,22 @@ public class UserServicePgImpl implements UserService {
                 .stream(userRepository.findAll().spliterator(), false)
                 .map(User::toDto)
                 .toList();
+    }
+
+    @Override
+    public ListUserResponse getPaginated(Pageable pageable) {
+        ListUserResponse response = new ListUserResponse();
+        Page<User> page = userRepository.findAll(pageable);
+        response.setUsers(page.get().map(User::toDto).toList());
+        response.setPagination(
+                Map.of(
+                        "total",page.getTotalElements(),
+                        "pages",page.getTotalPages(),
+                        "current_page", page.getNumber()
+
+                )
+        );
+        return response;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.decimal.rbac.model.rest;
+package com.decimal.rbac.model.rest.request;
 
 import com.decimal.rbac.exceptions.BadRequestException;
 import com.decimal.rbac.model.entities.Role;
