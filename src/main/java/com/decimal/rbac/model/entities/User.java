@@ -37,7 +37,7 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "status", columnDefinition = "boolean default true")
+    @Column(name = "status")
     private Status status;
 
     @Column(name = "password")
@@ -59,6 +59,14 @@ public class User {
     )
     private List<UserGroup> userGroups;
 
+    @ManyToMany
+    @JoinTable(
+            name = "USER_ROLE_GROUP_ASSOCIATIONS",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_group_id")
+    )
+    private List<RoleGroup> roleGroups;
+
     public Boolean hasRole(Role role) {
         if (userRoles == null || userRoles.isEmpty()) {
             return false;
@@ -73,13 +81,14 @@ public class User {
         this.userRoles.add(role);
     }
 
-    public UserDto toDto(){
+    public UserDto toDto() {
         return new UserDto(
                 username,
                 id,
                 status,
-                (userRoles != null)?userRoles.stream().map(Role::toDto).toList():null,
-                (userGroups != null)?userGroups.stream().map(UserGroup::toDto).toList():null
+                (userRoles != null) ? userRoles.stream().map(Role::toDto).toList() : null,
+                (userGroups != null) ? userGroups.stream().map(UserGroup::toDto).toList() : null,
+                (roleGroups != null) ? roleGroups.stream().map(RoleGroup::toDto).toList() : null
         );
     }
 }

@@ -48,6 +48,33 @@ PERMISSIONS(permission_id, permission_name, access_type, description) VALUES
 ('efb15e8f-0caa-48fe-a058-f4c116836b45'::UUID, 'PERMISSION 20', 'D', 'PERMISSION 20 Description Text'),
 ('efb15e8f-0caa-48fe-a058-f4c116836b46'::UUID, 'PERMISSION 21', 'C', 'PERMISSION 21 Description Text');
 
+INSERT INTO ROLE_PERMISSION_ASSOCIATIONS(ROLE_ID,PERMISSION_ID) VALUES
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b38'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b39'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3c'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3d'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b41'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b42'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b43'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b44'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b45'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
+('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID);
+
 -- USER1: ROLE 1, ROLE 10
 -- USER2: ROLE 3, ROLE 9
 -- USER3: ROLE 1

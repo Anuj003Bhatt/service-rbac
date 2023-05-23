@@ -19,4 +19,5 @@ public class UserDto {
     private Status status;
     private List<RoleDto> roles;
     private List<UserGroupDto> userGroups;
+    private List<RoleGroupDto> roleGroups;
 }

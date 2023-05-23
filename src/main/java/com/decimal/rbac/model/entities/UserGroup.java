@@ -48,10 +48,10 @@ public class UserGroup {
 
     public UserGroupDto toDto() {
         return new UserGroupDto(
-          id,
-          name,
-          description,
-          groupRoles.stream().map(Role::toDto).toList()
+                id,
+                name,
+                description,
+                (groupRoles != null) ? groupRoles.stream().map(Role::toDto).toList() : null
         );
     }
 
