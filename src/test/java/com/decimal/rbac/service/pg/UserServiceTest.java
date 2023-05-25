@@ -38,6 +38,7 @@ public class UserServiceTest {
                     Status.ACTIVE,
                     "Password " + i,
                     null,
+                    null,
                     null
             ));
         }

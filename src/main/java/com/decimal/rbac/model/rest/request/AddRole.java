@@ -26,6 +26,6 @@ public class AddRole {
     }
 
     public Role toDataModelObject() {
-        return new Role(null,name,description,null,null);
+        return new Role(null,name,description,null,null,null);
     }
 }

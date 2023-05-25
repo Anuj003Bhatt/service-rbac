@@ -48,14 +48,14 @@ public class UserControllerTest {
     @BeforeEach
     void setup() {
         this.users = new ArrayList<>();
+        UserDto.UserDtoBuilder builder = new UserDto.UserDtoBuilder();
         for (int i = 1; i <= 10; i++) {
-            this.users.add(new UserDto(
-                    "Name " + i,
-                    UUID.randomUUID(),
-                    Status.ACTIVE,
-                    null,
-                    null
-            ));
+            this.users.add(
+                    builder.withId(UUID.randomUUID())
+                            .withUserName("Name " + i)
+                            .withStatus(Status.ACTIVE)
+                            .build()
+            );
         }
     }
 

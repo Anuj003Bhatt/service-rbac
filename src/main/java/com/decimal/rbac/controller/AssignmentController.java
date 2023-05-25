@@ -11,11 +11,11 @@ import java.util.Map;
 
 @RequestMapping("assignment")
 @RestController
-public class RoleAssignmentController {
+public class AssignmentController {
 
     private final RoleAssignmentService roleAssignmentService;
 
-    public RoleAssignmentController(RoleAssignmentService roleAssignmentService) {
+    public AssignmentController(RoleAssignmentService roleAssignmentService) {
         this.roleAssignmentService = roleAssignmentService;
     }
 

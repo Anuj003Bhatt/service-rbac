@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.Map;
 
 @ControllerAdvice
-@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {NotFoundException.class, ResourceNotFoundException.class})

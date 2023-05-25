@@ -3,7 +3,6 @@ package com.decimal.rbac.service;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.rest.request.AddUser;
 import com.decimal.rbac.model.rest.response.ListUserResponse;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

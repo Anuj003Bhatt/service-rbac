@@ -32,7 +32,7 @@ public class UsersController {
         this.userService = userService;
     }
 
-//    @GetMapping
+    @GetMapping("/all")
     public List<UserDto> listAllUsers(){
         return userService.listAllUsers();
     }
