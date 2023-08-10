@@ -1,8 +1,8 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.UserDto;
-import com.decimal.rbac.model.rest.AddUser;
 import com.decimal.rbac.model.dtos.ListUserResponse;
+import com.decimal.rbac.model.rest.request.AddUser;
 import com.decimal.rbac.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

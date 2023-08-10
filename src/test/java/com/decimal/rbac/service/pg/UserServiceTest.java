@@ -1,17 +1,20 @@
 package com.decimal.rbac.service.pg;
 
 import com.decimal.rbac.exceptions.NotFoundException;
+import com.decimal.rbac.model.dtos.ListUserResponse;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
+import com.decimal.rbac.util.EncryptionUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +39,7 @@ public class UserServiceTest {
                     UUID.randomUUID(),
                     "Name " + i,
                     Status.ACTIVE,
-                    "Password " + i,
+                    EncryptionUtil.encryptWithSalt("Password " + i),
                     null,
                     null,
                     null
@@ -52,9 +55,9 @@ public class UserServiceTest {
     void testUserGetsAll(){
         UserService userService = new UserServicePgImpl(userRepository);
         when(userRepository.findAll()).thenReturn(users);
-        List<UserDto> users = userService.listAllUsers();
+        ListUserResponse users = userService.listAllUsers(Pageable.ofSize(20));
         verify(userRepository).findAll();
-        assert users.size() == 10;
+        assert users.getUsers().size() == 10;
 
     }
 

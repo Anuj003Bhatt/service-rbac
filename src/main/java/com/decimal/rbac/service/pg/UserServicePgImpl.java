@@ -9,7 +9,7 @@ import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
-import com.decimal.rbac.model.rest.AddUser;
+import com.decimal.rbac.model.rest.request.AddUser;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
 import jakarta.transaction.Transactional;
@@ -93,7 +93,6 @@ public class UserServicePgImpl implements UserService {
                                 .elements(page.getTotalElements())
                                 .build()
                 ).build();
-        );
         return response;
     }
 
