@@ -19,9 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 
 @Service
 public class UserServicePgImpl implements UserService {
@@ -43,9 +41,7 @@ public class UserServicePgImpl implements UserService {
             } else {
                 throw ex;
             }
-
         }
-
     }
 
     @Override
@@ -80,6 +76,25 @@ public class UserServicePgImpl implements UserService {
                                 .elements(users.getTotalElements())
                                 .build()
                 ).build();
+    }
+
+    @Override
+    public ListUserResponse getPaginated(Pageable pageable) {
+        ListUserResponse response = new ListUserResponse();
+        Page<User> page = userRepository.findAll(pageable);
+        ListUserResponse
+                .builder()
+                .users(page.map(User::toDto).toList())
+                .pagination(
+                        Pagination
+                                .builder()
+                                .totalPages(page.getTotalPages())
+                                .currentPage(page.getTotalElements())
+                                .elements(page.getTotalElements())
+                                .build()
+                ).build();
+        );
+        return response;
     }
 
     @Override

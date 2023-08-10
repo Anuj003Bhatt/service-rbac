@@ -17,4 +17,9 @@ public class NotFoundException extends RuntimeException {
         super(message);
         this.message = message;
     }
+
+    public NotFoundException(String message, Object...args) {
+        super(message.formatted(args));
+        this.message = message.formatted(args);
+    }
 }

@@ -1,19 +1,18 @@
 package com.decimal.rbac.controller;
 
-import com.decimal.rbac.model.dtos.ListUserResponse;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.rest.AddUser;
+import com.decimal.rbac.model.dtos.ListUserResponse;
 import com.decimal.rbac.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -43,9 +41,12 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "Found user by ID"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ListUserResponse listAllUsers(
-            @Parameter(hidden = true) Pageable pageable){
-        return userService.listAllUsers(pageable);
+    public ListUserResponse getUsersPage(
+            @PageableDefault(size = 20)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+            }) Pageable pageable){
+        return userService.getPaginated(pageable);
     }
 
     @GetMapping("/_byId/{id}")

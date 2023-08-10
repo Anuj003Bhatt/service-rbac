@@ -40,20 +40,26 @@ public class UserGroup {
 
     @ManyToMany
     @JoinTable(
+            name = "USER_GROUP_USERS",
+            joinColumns = @JoinColumn(name = "user_group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
+
+    @ManyToMany
+    @JoinTable(
             name = "USER_GROUP_ROLE_ASSOCIATIONS",
             joinColumns = @JoinColumn(name = "user_group_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> groupRoles;
+    private List<Role> rolesInGroup;
 
     public UserGroupDto toDto() {
         return new UserGroupDto(
-          id,
-          name,
-          description,
-          groupRoles.stream().map(Role::toDto).toList()
+                id,
+                name,
+                description,
+                (rolesInGroup != null) ? rolesInGroup.stream().map(Role::toDto).toList() : null
         );
     }
-
-
 }
