@@ -15,9 +15,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -33,14 +36,15 @@ public class User {
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "status", columnDefinition = "boolean default true")
     private Status status;
 
-    @Column(name = "password")
-    private String password;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "password", nullable = false)
+    private Map<String, String> password;
 
     @ManyToMany
     @JoinTable(

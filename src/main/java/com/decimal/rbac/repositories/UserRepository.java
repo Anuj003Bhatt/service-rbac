@@ -1,17 +1,20 @@
 package com.decimal.rbac.repositories;
 
 import com.decimal.rbac.model.entities.User;
+import com.decimal.rbac.model.enums.Status;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public interface UserRepository extends CrudRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findByUsername(String name);
 
     <T> Optional<T> findById(UUID id, Class<T> type);
+
+    <T> Optional<T> findByIdAndStatus(UUID id, Status status, Class<T> type);
 
     @Modifying
     @Query("update User u set u.status=com.decimal.rbac.model.enums.Status.INACTIVE where u.id = :id")

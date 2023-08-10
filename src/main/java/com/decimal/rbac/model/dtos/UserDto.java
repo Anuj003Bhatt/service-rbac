@@ -1,6 +1,7 @@
 package com.decimal.rbac.model.dtos;
 
 import com.decimal.rbac.model.enums.Status;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(name = "User")
 public class UserDto {
     private String userName;
     private UUID id;

@@ -3,8 +3,11 @@ package com.decimal.rbac.service.pg;
 import com.decimal.rbac.constants.ErrorMessage;
 import com.decimal.rbac.exceptions.BadRequestException;
 import com.decimal.rbac.exceptions.NotFoundException;
+import com.decimal.rbac.model.dtos.ListUserResponse;
+import com.decimal.rbac.model.dtos.Pagination;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
+import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
 import com.decimal.rbac.model.rest.AddUser;
 import com.decimal.rbac.repositories.UserRepository;
@@ -12,6 +15,8 @@ import com.decimal.rbac.service.UserService;
 import jakarta.transaction.Transactional;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,8 +51,8 @@ public class UserServicePgImpl implements UserService {
     @Override
     @Transactional
     public void disableUser(UUID id) {
-        UserId user = userRepository.findById(id, UserId.class).orElseThrow(
-                () -> new BadRequestException("No user found for id %s", id)
+        UserId user = userRepository.findByIdAndStatus(id, Status.ACTIVE, UserId.class).orElseThrow(
+                () -> new NotFoundException(String.format("User with id %s not found or already disabled", id))
         );
         userRepository.disableUser(user.getId());
     }
@@ -55,18 +60,26 @@ public class UserServicePgImpl implements UserService {
     @Override
     @Transactional
     public void enableUser(UUID id) {
-        UserId user = userRepository.findById(id, UserId.class).orElseThrow(
-                () -> new BadRequestException("No user found for id %s", id)
+        UserId user = userRepository.findByIdAndStatus(id, Status.INACTIVE, UserId.class).orElseThrow(
+                () -> new NotFoundException(String.format("User with id %s not found or already enabled", id))
         );
         userRepository.enableUser(user.getId());
     }
 
     @Override
-    public List<UserDto> listAllUsers() {
-        return StreamSupport
-                .stream(userRepository.findAll().spliterator(), false)
-                .map(User::toDto)
-                .toList();
+    public ListUserResponse listAllUsers(Pageable pageable) {
+        Page<User> users = userRepository.findAll(pageable);
+        return ListUserResponse
+                .builder()
+                .users(users.map(User::toDto).toList())
+                .pagination(
+                        Pagination
+                                .builder()
+                                .totalPages(users.getTotalPages())
+                                .currentPage(users.getTotalElements())
+                                .elements(users.getTotalElements())
+                                .build()
+                ).build();
     }
 
     @Override
