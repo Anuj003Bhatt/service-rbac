@@ -12,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "ROLE_GROUPS")
+@Builder
 public class RoleGroup implements DtoBridge<RoleGroupDto> {
 
     @Id

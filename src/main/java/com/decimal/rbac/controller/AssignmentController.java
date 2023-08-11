@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 import java.util.UUID;
 
-@RequestMapping("assignment")
+@RequestMapping("assignments")
 @RestController
 @AllArgsConstructor
 public class AssignmentController {
 
     private final RoleAssignmentService roleAssignmentService;
 
-    @PutMapping("userRoles/{userId}/{roleId}")
+    @PutMapping("user/{userId}/role/{roleId}")
     public Map<String, String> assignUserToRole(
             @PathVariable("userId") UUID userId,
             @PathVariable("roleId") UUID roleId
@@ -26,12 +26,48 @@ public class AssignmentController {
         return Map.of("message","Role has been assigned to the user.");
     }
 
-    @PutMapping("rolePermissions/{roleId}/{permissionId}")
+    @PutMapping("role/{roleId}/permission/{permissionId}")
     public Map<String, String> addPermissionToRole(
             @PathVariable("roleId") UUID roleId,
             @PathVariable("permissionId") UUID permissionId
     ){
         roleAssignmentService.addPermissionToRole(roleId, permissionId);
         return Map.of("message","Permission has been added to the specified role successfully.");
+    }
+
+    @PutMapping("user/{userId}/userGroup/{userGroupId}")
+    public Map<String, String> assignUserGroupToUser(
+            @PathVariable("userId") UUID userId,
+            @PathVariable("userGroupId") UUID userGroupId
+    ){
+        roleAssignmentService.assignUserGroupToUser(userId, userGroupId);
+        return Map.of("message","User has been added to the specified user group successfully.");
+    }
+
+    @PutMapping("user/{userId}/roleGroup/{roleGroupId}")
+    public Map<String, String> assignRoleGroupToUser(
+            @PathVariable("userId") UUID userId,
+            @PathVariable("roleGroupId") UUID roleGroupId
+    ){
+        roleAssignmentService.assignRoleGroupToUser(userId, roleGroupId);
+        return Map.of("message","User has been assigned the role group successfully.");
+    }
+
+    @PutMapping("role/{roleId}/roleGroup/{roleGroupId}")
+    public Map<String, String> addRoleToRoleGroup(
+            @PathVariable("roleId") UUID roleId,
+            @PathVariable("roleGroupId") UUID roleGroupId
+    ){
+        roleAssignmentService.addRoleToRoleGroup(roleId, roleGroupId);
+        return Map.of("message","Role has been added to the role group successfully.");
+    }
+
+    @PutMapping("role/{roleId}/userGroup/{userGroupId}")
+    public Map<String, String> assignRoleToUserGroup(
+            @PathVariable("roleId") UUID roleId,
+            @PathVariable("userGroupId") UUID userGroupId
+    ){
+        roleAssignmentService.assignRoleToUserGroup(roleId, userGroupId);
+        return Map.of("message","Role assigned to the user group successfully.");
     }
 }

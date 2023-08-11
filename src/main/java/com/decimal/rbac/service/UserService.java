@@ -1,7 +1,9 @@
 package com.decimal.rbac.service;
 
 import com.decimal.rbac.model.dtos.UserDto;
+import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.request.AddUserGroup;
 import com.decimal.rbac.model.rest.response.ListResponse;
 import org.springframework.data.domain.Pageable;
 
@@ -28,5 +30,9 @@ public interface UserService {
     UserDto findUserByUsername(String name);
 
     UserDto authenticate(String username, String password);
+
+    UserGroupDto addUserGroup(AddUserGroup userGroup);
+
+    UserGroupDto getUserGroupById(UUID id);
 
 }

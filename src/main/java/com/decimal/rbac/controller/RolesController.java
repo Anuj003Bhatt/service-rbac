@@ -1,13 +1,17 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.RoleDto;
+import com.decimal.rbac.model.dtos.RoleGroupDto;
+import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.rest.request.AddRole;
+import com.decimal.rbac.model.rest.request.AddRoleGroup;
 import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.service.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -80,5 +84,27 @@ public class RolesController {
                     @SortDefault(sort = "id", direction = Sort.Direction.ASC)
             }) @Parameter(hidden = true) Pageable pageable) {
         return roleService.searchRoleByName(name, pageable);
+    }
+
+    @PostMapping("groups")
+    @Operation(summary = "Create a role group")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Role Group found")
+    })
+    public RoleGroupDto createUserGroup(
+            @RequestBody @Valid AddRoleGroup userGroup
+    ) {
+        return roleService.addRoleGroup(userGroup);
+    }
+
+    @GetMapping("groups/{id}")
+    @Operation(summary = "Get a role group by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Role Group found")
+    })
+    public RoleGroupDto getUserGroupById(
+            @PathVariable("id") UUID id
+    ) {
+        return roleService.getRoleGroupById(id);
     }
 }

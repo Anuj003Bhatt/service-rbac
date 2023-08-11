@@ -1,7 +1,9 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.UserDto;
+import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.request.AddUserGroup;
 import com.decimal.rbac.model.rest.request.UserAuthenticationRequest;
 import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.service.UserService;
@@ -128,6 +130,26 @@ public class UsersController {
         return userService.authenticate(request.getUserName(), request.getPassword());
     }
 
+    @PostMapping("groups")
+    @Operation(summary = "Create a user group")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "User Group created successfully")
+    })
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserGroupDto createUserGroup(
+            @RequestBody @Valid AddUserGroup userGroup
+    ) {
+        return userService.addUserGroup(userGroup);
+    }
 
-
+    @GetMapping("groups/{id}")
+    @Operation(summary = "Get a user group by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User Group created successfully")
+    })
+    public UserGroupDto getUserGroupById(
+            @PathVariable("id") UUID id
+    ) {
+        return userService.getUserGroupById(id);
+    }
 }

@@ -5,11 +5,14 @@ import com.decimal.rbac.exceptions.AuthenticationFailedException;
 import com.decimal.rbac.exceptions.NotFoundException;
 import com.decimal.rbac.model.dtos.BridgeUtil;
 import com.decimal.rbac.model.dtos.UserDto;
+import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
 import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.request.AddUserGroup;
 import com.decimal.rbac.model.rest.response.ListResponse;
+import com.decimal.rbac.repositories.UserGroupRepository;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
 import com.decimal.rbac.util.EncryptionUtil;
@@ -27,6 +30,7 @@ import java.util.UUID;
 public class UserServicePgImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final UserGroupRepository userGroupRepository;
 
     @Override
     public UserDto addUser(AddUser user) {
@@ -97,5 +101,21 @@ public class UserServicePgImpl implements UserService {
         } else {
             throw new AuthenticationFailedException("Invalid Username/password");
         }
+    }
+
+    @Override
+    public UserGroupDto addUserGroup(AddUserGroup userGroup) {
+        try {
+            return userGroupRepository.save(userGroup.toDataModelObject()).toDto();
+        } catch (DataIntegrityViolationException ex) {
+            throw IntegrityErrorUtil.formatIntegrityExceptions(ex);
+        }
+    }
+
+    @Override
+    public UserGroupDto getUserGroupById(UUID id) {
+        return userGroupRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("No user group found for ID %s", id)
+        ).toDto();
     }
 }
