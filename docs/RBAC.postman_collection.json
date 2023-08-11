@@ -1,0 +1,952 @@
+{
+	"info": {
+		"_postman_id": "dcd2f1c5-43a4-47ca-9b59-3e956caf9022",
+		"name": "RBAC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"userId\", jsonData.id);",
+									"pm.collectionVariables.set(\"userName\", jsonData.userName);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"user1\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{applicationUrl}}/users",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"userGroupId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"User Group 1\",\n    \"description\": \"This is a sample user group\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{applicationUrl}}/users/groups",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"abc\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{applicationUrl}}/users/authenticate",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"userId\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users?size=2",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users/_byId/{{userId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"_byId",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserGroup by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users/groups/{{userGroupId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"groups",
+								"{{userGroupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User By Username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users/_byUsername/{{userName}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"_byUsername",
+								"{{userName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users/{{userId}}/enable",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}",
+								"enable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Disable User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users/{{userId}}/disable",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"{{userId}}",
+								"disable"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Add Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"roleId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Role 1\",\n    \"description\": \"This is a test role\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{applicationUrl}}/roles",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Role Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"roleGroupId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Role Group 1\",\n    \"description\": \"This is a test role group\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{applicationUrl}}/roles/groups",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"roles",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Roles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/roles?size=2&page=0",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"roles"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/roles/{{roleId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"roles",
+								"{{roleId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RoleGroup By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/roles/groups/{{roleGroupId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"roles",
+								"groups",
+								"{{roleGroupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Roles By Name [Containing]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/roles/search/_byName/Role 1",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"roles",
+								"search",
+								"_byName",
+								"Role 1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Permissions",
+			"item": [
+				{
+					"name": "Add Permission",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"permissionId\", jsonData.id);",
+									"var jsonData = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"permissionName\", jsonData.name);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Permission 2\",\n    \"description\": \"This is a test permission\",\n    \"accessType\" : \"Create\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{applicationUrl}}/permissions",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permission By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/permissions/{{permissionId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"permissions",
+								"{{permissionId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permission By Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/permissions/_byName/{{permissionName}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"permissions",
+								"_byName",
+								"{{permissionName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Permissions By Access Types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/permissions/_byAccess/Create,Read",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"permissions",
+								"_byAccess",
+								"Create,Read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Permissions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/permissions?size=2",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"permissions"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Role Assignment",
+			"item": [
+				{
+					"name": "Assign Role to User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/assignments/user/{{userId}}/role/{{roleId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"assignments",
+								"user",
+								"{{userId}}",
+								"role",
+								"{{roleId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User to User Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/assignments/user/{{userId}}/userGroup/{{userGroupId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"assignments",
+								"user",
+								"{{userId}}",
+								"userGroup",
+								"{{userGroupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role Group to User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/assignments/user/{{userId}}/roleGroup/{{roleGroupId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"assignments",
+								"user",
+								"{{userId}}",
+								"roleGroup",
+								"{{roleGroupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role to Role group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/assignments/role/{{roleId}}/roleGroup/{{roleGroupId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"assignments",
+								"role",
+								"{{roleId}}",
+								"roleGroup",
+								"{{roleGroupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role to user Group",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/assignments/role/{{roleId}}/userGroup/{{userGroupId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"assignments",
+								"role",
+								"{{roleId}}",
+								"userGroup",
+								"{{userGroupId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Permission to Role Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/assignments/role/{{roleId}}/permission/{{permissionId}}",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"assignments",
+								"role",
+								"{{roleId}}",
+								"permission",
+								"{{permissionId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "applicationUrl",
+			"value": "http://localhost:8002",
+			"type": "default"
+		},
+		{
+			"key": "userId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "roleId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "permissionId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "permissionName",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "userName",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "roleGroupId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "userGroupId",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
