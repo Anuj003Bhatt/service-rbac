@@ -2,19 +2,22 @@ package com.decimal.rbac.service;
 
 import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.model.dtos.PermissionDto;
+import com.decimal.rbac.model.rest.request.AddPermission;
+import com.decimal.rbac.model.rest.response.ListResponse;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface PermissionService {
 
-    PermissionDto create(PermissionDto permission);
+    PermissionDto create(AddPermission permission);
 
-    List<PermissionDto> getAllPermissions();
+    ListResponse<PermissionDto> getAllPermissions(Pageable pageable);
 
     PermissionDto getPermissionById(UUID id);
 
     PermissionDto getPermissionByName(String name);
 
-    List<PermissionDto> getPermissionByAccessTypes(List<PermissionType> permissionTypes);
+    ListResponse<PermissionDto> getPermissionByAccessTypes(List<PermissionType> permissionTypes, Pageable pageable);
 }

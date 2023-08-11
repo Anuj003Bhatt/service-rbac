@@ -1,7 +1,7 @@
 package com.decimal.rbac.model.dtos;
 
-import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.enums.Status;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Schema(name = "User")
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
     private String userName;
     private UUID id;
@@ -26,13 +27,4 @@ public class UserDto {
     private List<RoleDto> roles;
     private List<Map<String, String>> userGroups;
     private List<Map<String, String>> roleGroups;
-
-    public User toDataModelObject() {
-
-        return User.builder().id(id)
-                .username(userName)
-                .status(status)
-                .userRoles(roles.stream().map(RoleDto::toDataModelObject).toList())
-                .build();
-    }
 }

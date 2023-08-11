@@ -1,5 +1,6 @@
 package com.decimal.rbac.model.entities;
 
+import com.decimal.rbac.model.dtos.DtoBridge;
 import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.model.dtos.PermissionDto;
 import jakarta.persistence.Column;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,14 +24,15 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
-public class Permission {
+@Builder
+public class Permission implements DtoBridge<PermissionDto> {
     @Id
-    @Column(name = "permission_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "permission_name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "access_type")
@@ -38,6 +41,7 @@ public class Permission {
     @Column(name = "description")
     private String description;
 
+    @Override
     public PermissionDto toDto(){
         return new PermissionDto(
                 this.id,

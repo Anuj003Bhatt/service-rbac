@@ -1,5 +1,6 @@
 package com.decimal.rbac.model.entities;
 
+import com.decimal.rbac.model.dtos.DtoBridge;
 import com.decimal.rbac.model.dtos.RoleGroupDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,15 +26,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "ROLE_GROUPS")
-public class RoleGroup {
+public class RoleGroup implements DtoBridge<RoleGroupDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @UuidGenerator
-    @Column(name = "role_group_id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "role_group_name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
@@ -47,6 +48,7 @@ public class RoleGroup {
     )
     private List<Role> roles;
 
+    @Override
     public RoleGroupDto toDto() {
         return new RoleGroupDto(
                 id,

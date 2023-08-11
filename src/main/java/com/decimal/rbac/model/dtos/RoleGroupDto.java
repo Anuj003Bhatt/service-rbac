@@ -1,6 +1,5 @@
 package com.decimal.rbac.model.dtos;
 
-import com.decimal.rbac.model.entities.RoleGroup;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,14 +17,4 @@ public class RoleGroupDto {
     private String name;
     private String description;
     private List<RoleDto> roles;
-
-    public RoleGroup toDataModelObject() {
-        return new RoleGroup(
-                id,
-                name,
-                description,
-                (roles!= null)? roles.stream().map(RoleDto::toDataModelObject).toList():null
-        );
-
-    }
 }

@@ -1,11 +1,11 @@
 package com.decimal.rbac.service.pg;
 
 import com.decimal.rbac.exceptions.NotFoundException;
-import com.decimal.rbac.model.dtos.ListUserResponse;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
 import com.decimal.rbac.util.EncryptionUtil;
@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
@@ -33,9 +34,10 @@ public class UserServiceTest {
 
     @BeforeEach
     void setup() {
+
         this.users = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
-            this.users.add(new User(
+            users.add(new User(
                     UUID.randomUUID(),
                     "Name " + i,
                     Status.ACTIVE,
@@ -45,7 +47,6 @@ public class UserServiceTest {
                     null
             ));
         }
-
     }
 
     @Mock
@@ -54,10 +55,10 @@ public class UserServiceTest {
     @Test
     void testUserGetsAll(){
         UserService userService = new UserServicePgImpl(userRepository);
-        when(userRepository.findAll()).thenReturn(users);
-        ListUserResponse users = userService.listAllUsers(Pageable.ofSize(20));
-        verify(userRepository).findAll();
-        assert users.getUsers().size() == 10;
+        when(userRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<User>(users));
+        ListResponse<UserDto> users = userService.listAllUsers(Pageable.ofSize(20));
+        verify(userRepository).findAll(any(Pageable.class));
+        assert users.getData().size() == 10;
 
     }
 
@@ -65,14 +66,14 @@ public class UserServiceTest {
     void testDisableUserNotFound(){
         UserService userService = new UserServicePgImpl(userRepository);
         Assertions.assertThrows(NotFoundException.class, () ->userService.disableUser(UUID.randomUUID()));
-        verify(userRepository).findById(any(), any());
+        verify(userRepository).findByIdAndStatus(any(), any(), any());
         verify(userRepository, never()).disableUser(any());
     }
 
     @Test
     void testDisableUser(){
         UserService userService = new UserServicePgImpl(userRepository);
-        when(userRepository.findById(any(), any())).thenReturn(Optional.of(
+        when(userRepository.findByIdAndStatus(any(), any(), any())).thenReturn(Optional.of(
                 new UserId() {
                     @Override
                     public UUID getId() {
@@ -81,7 +82,7 @@ public class UserServiceTest {
                 }
         ));
         userService.disableUser(UUID.randomUUID());
-        verify(userRepository).findById(any(), any());
+        verify(userRepository).findByIdAndStatus(any(), any(), any());
         verify(userRepository).disableUser(any());
     }
 
@@ -89,14 +90,14 @@ public class UserServiceTest {
     void testEnableUserNotFound(){
         UserService userService = new UserServicePgImpl(userRepository);
         Assertions.assertThrows(NotFoundException.class, () ->userService.disableUser(UUID.randomUUID()));
-        verify(userRepository).findById(any(), any());
+        verify(userRepository).findByIdAndStatus(any(), any(), any());
         verify(userRepository, never()).enableUser(any());
     }
 
     @Test
     void testEnableUser(){
         UserService userService = new UserServicePgImpl(userRepository);
-        when(userRepository.findById(any(), any())).thenReturn(Optional.of(
+        when(userRepository.findByIdAndStatus(any(),any(), any())).thenReturn(Optional.of(
                 new UserId() {
                     @Override
                     public UUID getId() {
@@ -105,7 +106,7 @@ public class UserServiceTest {
                 }
         ));
         userService.enableUser(UUID.randomUUID());
-        verify(userRepository).findById(any(), any());
+        verify(userRepository).findByIdAndStatus(any(), any(), any());
         verify(userRepository).enableUser(any());
     }
 

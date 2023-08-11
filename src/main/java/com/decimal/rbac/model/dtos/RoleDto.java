@@ -1,6 +1,5 @@
 package com.decimal.rbac.model.dtos;
 
-import com.decimal.rbac.model.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +17,4 @@ public class RoleDto {
     private String name;
     private String description;
     private List<PermissionDto> rolePermissions;
-
-    public Role toDataModelObject() {
-        Role.RoleEntityBuilder builder = new Role.RoleEntityBuilder();
-        return builder.withId(id)
-                .withName(name)
-                .description(description)
-                .associatedEntityRolePermissionsFromDto(rolePermissions)
-                .build();
-    }
 }

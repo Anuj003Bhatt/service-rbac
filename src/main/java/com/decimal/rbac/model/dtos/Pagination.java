@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Pagination {
     Integer totalPages;
-    Long currentPage;
+    Integer currentPage;
     Long elements;
 
 }

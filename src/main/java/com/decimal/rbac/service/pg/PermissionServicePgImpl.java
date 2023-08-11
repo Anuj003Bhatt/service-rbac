@@ -1,35 +1,36 @@
 package com.decimal.rbac.service.pg;
 
+import com.decimal.rbac.model.dtos.BridgeUtil;
 import com.decimal.rbac.model.enums.PermissionType;
+import com.decimal.rbac.model.rest.request.AddPermission;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.service.PermissionService;
 import com.decimal.rbac.exceptions.NotFoundException;
 import com.decimal.rbac.model.dtos.PermissionDto;
 import com.decimal.rbac.model.entities.Permission;
 import com.decimal.rbac.repositories.PermissionRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 
 @Service
+@AllArgsConstructor
 public class PermissionServicePgImpl implements PermissionService {
     private final PermissionRepository permissionRepository;
 
-    public PermissionServicePgImpl(PermissionRepository repository) {
-        this.permissionRepository = repository;
-    }
-
     @Override
-    public PermissionDto create(PermissionDto permission) {
+    public PermissionDto create(AddPermission permission) {
         return permissionRepository.save(permission.toDataModelObject()).toDto();
     }
 
     @Override
-    public List<PermissionDto> getAllPermissions() {
-        return permissionRepository.findAll().stream()
-                .map(Permission::toDto)
-                .toList();
+    public ListResponse<PermissionDto> getAllPermissions(Pageable pageable) {
+        Page<Permission> permissions = permissionRepository.findAll(pageable);
+        return BridgeUtil.buildPaginatedResponse(permissions);
     }
 
     @Override
@@ -47,10 +48,8 @@ public class PermissionServicePgImpl implements PermissionService {
     }
 
     @Override
-    public List<PermissionDto> getPermissionByAccessTypes(List<PermissionType> permissionTypes) {
-        return StreamSupport.stream(
-                permissionRepository.findByAccessTypeIn(permissionTypes).spliterator(),
-                false
-        ).map(Permission::toDto).toList();
+    public ListResponse<PermissionDto> getPermissionByAccessTypes(List<PermissionType> permissionTypes, Pageable pageable) {
+        Page<Permission> permissions = permissionRepository.findByAccessTypeIn(permissionTypes, pageable);
+        return BridgeUtil.buildPaginatedResponse(permissions);
     }
 }

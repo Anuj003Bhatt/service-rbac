@@ -1,11 +1,10 @@
 package com.decimal.rbac.service;
 
 import com.decimal.rbac.model.dtos.UserDto;
-import com.decimal.rbac.model.dtos.ListUserResponse;
 import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -20,12 +19,14 @@ public interface UserService {
 
     void enableUser(UUID id);
 
-    ListUserResponse listAllUsers(Pageable pageable);
+    ListResponse<UserDto> listAllUsers(Pageable pageable);
 
-    ListUserResponse getPaginated(Pageable pageable);
+    ListResponse<UserDto> getPaginated(Pageable pageable);
 
     UserDto findUserById(UUID id);
 
     UserDto findUserByUsername(String name);
+
+    UserDto authenticate(String username, String password);
 
 }

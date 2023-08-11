@@ -78,4 +78,14 @@ public abstract class EncryptionUtil {
         keyGenerator.init(n);
         return keyGenerator.generateKey();
     }
+
+    public static boolean verifyPassword(String password, Map<String, String> passwordFromDb) {
+        if (null == password || "".equals(password)) {
+            log.error("Password is blank/empty: {}", password);
+            throw new IllegalArgumentException("Password verification initiated with empty password");
+        }
+
+        String encoded = Base64.getEncoder().encodeToString(hash(password, passwordFromDb.get("salt")));
+        return passwordFromDb.get("value").equals(encoded);
+    }
 }

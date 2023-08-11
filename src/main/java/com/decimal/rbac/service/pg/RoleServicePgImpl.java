@@ -1,28 +1,32 @@
 package com.decimal.rbac.service.pg;
 
+import com.decimal.rbac.constants.IntegrityErrorUtil;
 import com.decimal.rbac.exceptions.NotFoundException;
+import com.decimal.rbac.model.dtos.BridgeUtil;
 import com.decimal.rbac.model.dtos.RoleDto;
 import com.decimal.rbac.model.entities.Role;
 import com.decimal.rbac.model.rest.request.AddRole;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.repositories.RoleRepository;
 import com.decimal.rbac.service.RoleService;
+import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.StreamSupport;
 
 @Service
+@AllArgsConstructor
 public class RoleServicePgImpl implements RoleService {
 
     private final RoleRepository roleRepository;
 
-    public RoleServicePgImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
     @Override
-    public List<RoleDto> getAllRoles() {
-        return StreamSupport.stream(roleRepository.findAll().spliterator(), false).map(Role::toDto).toList();
+    public ListResponse<RoleDto> getAllRoles(Pageable pageable) {
+        Page<Role> roles = roleRepository.findAll(pageable);
+        return BridgeUtil.buildPaginatedResponse(roles);
     }
 
     @Override
@@ -33,14 +37,17 @@ public class RoleServicePgImpl implements RoleService {
     }
 
     @Override
-    public List<RoleDto> searchRoleByName(String name) {
-        return StreamSupport.stream(roleRepository.findByNameContaining(name).spliterator(), false).map(Role::toDto).toList();
+    public ListResponse<RoleDto> searchRoleByName(String name, Pageable pageable) {
+        Page<Role> roles = roleRepository.findByNameContaining(name, pageable);
+        return BridgeUtil.buildPaginatedResponse(roles);
     }
 
     @Override
     public RoleDto createRole(AddRole role) {
-        return roleRepository.save(role.toDataModelObject()).toDto();
+        try {
+            return roleRepository.save(role.toDataModelObject()).toDto();
+        } catch (DataIntegrityViolationException ex) {
+            throw IntegrityErrorUtil.formatIntegrityExceptions(ex);
+        }
     }
-
-
 }

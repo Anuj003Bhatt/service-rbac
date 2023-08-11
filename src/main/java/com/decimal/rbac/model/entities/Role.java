@@ -1,5 +1,6 @@
 package com.decimal.rbac.model.entities;
 
+import com.decimal.rbac.model.dtos.DtoBridge;
 import com.decimal.rbac.model.dtos.PermissionDto;
 import com.decimal.rbac.model.dtos.RoleDto;
 import com.decimal.rbac.model.dtos.RoleGroupDto;
@@ -13,7 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,15 +30,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ROLES")
-public class Role {
+@Table(name = "ROLES", uniqueConstraints = {
+        @UniqueConstraint(name = "unique_name_in_role", columnNames = {"name"})
+})
+@Builder
+public class Role implements DtoBridge<RoleDto> {
     @Id
-    @Column(name = "role_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "role_name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
@@ -62,6 +68,7 @@ public class Role {
         return users.stream().anyMatch(u -> u.getId() == user.getId());
     }
 
+    @Override
     public RoleDto toDto() {
         return new RoleDto(
                 id,
@@ -69,133 +76,5 @@ public class Role {
                 description,
                 (rolePermissions != null)?rolePermissions.stream().map(Permission::toDto).toList():null
         );
-    }
-
-    public static class RoleEntityBuilder{
-        private UUID id;
-        private String name;
-        private String description;
-
-        // not saved via role in DB
-        private List<User> users;
-        // not saved via role in DB
-        private List<RoleGroup> roleGroups;
-        private List<Permission> rolePermissions;
-
-        /**
-         * Set role ID
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder withId(UUID id) {
-            this.id = id;
-            return this;
-        }
-
-        /**
-         * Set role name
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        /**
-         * Set role description
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        /**
-         * Set entity role users
-         * Please note while using both entity and dto function together
-         * The last use will override the previous one.
-         *
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder usersEntityWithRole(List<User> users) {
-            this.users = users;
-            return this;
-        }
-
-        /**
-         * Set dto role users
-         * Please note while using both entity and dto function together
-         * The last use will override the previous one.
-         *
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder usersEntityWithRoleFromDto(List<UserDto> users) {
-            this.users = (users!= null)
-                    ?users.stream().map(UserDto::toDataModelObject).toList()
-                    :null;
-            return this;
-        }
-
-        /**
-         * Set entity role groups
-         * Please note while using both entity and dto function together
-         * The last use will override the previous one.
-         *
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder associatedEntityRoleGroups(List<RoleGroup> groups) {
-            this.roleGroups = groups;
-            return this;
-        }
-
-        /**
-         * Set dto role groups
-         * Please note while using both entity and dto function together
-         * The last use will override the previous one.
-         *
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder associatedEntityRoleGroupsFromDto(List<RoleGroupDto> groups) {
-            this.roleGroups = (groups!= null)
-                    ?groups.stream().map(RoleGroupDto::toDataModelObject).toList()
-                    :null;
-            return this;
-        }
-
-        /**
-         * Set entity role permissions
-         * Please note while using both entity and dto function together
-         * The last use will override the previous one.
-         *
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder associatedEntityRolePermissions(List<Permission> permissions) {
-            this.rolePermissions = permissions;
-            return this;
-        }
-
-        /**
-         * Set dto role permissions
-         * Please note while using both entity and dto function together
-         * The last use will override the previous one.
-         *
-         * @return Current builder instance again
-         */
-        public RoleEntityBuilder associatedEntityRolePermissionsFromDto(List<PermissionDto> permissions) {
-            this.rolePermissions = (permissions!= null)
-                    ?permissions.stream().map(PermissionDto::toDataModelObject).toList()
-                    :null;
-            return this;
-        }
-
-        public Role build() {
-            return new Role(
-                    id,
-                    name,
-                    description,
-                    users,
-                    roleGroups,
-                    rolePermissions
-            );
-        }
     }
 }

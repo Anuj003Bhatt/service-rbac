@@ -1,7 +1,9 @@
 package com.decimal.rbac.model.rest.response;
 
+import com.decimal.rbac.model.dtos.Pagination;
 import com.decimal.rbac.model.dtos.UserDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +15,8 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListUserResponse {
-    List<UserDto> users;
-    Map<String, Object> pagination;
+@Builder
+public class ListResponse<T> {
+    List<T> data;
+    Pagination pagination;
 }

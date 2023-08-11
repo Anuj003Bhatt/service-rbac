@@ -2,6 +2,8 @@ package com.decimal.rbac.repositories;
 
 import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.model.entities.Permission;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,5 +28,5 @@ public interface PermissionRepository extends JpaRepository<Permission, UUID> {
      * @return permissions: List of all permission that have the access type of the input
      */
     @Query("SELECT p FROM Permission p WHERE p.accessType IN :accessTypes")
-    Iterable<Permission> findByAccessTypeIn(@Param("accessTypes") Collection<PermissionType> accessTypes);
+    Page<Permission> findByAccessTypeIn(@Param("accessTypes") Collection<PermissionType> accessTypes, Pageable pageable);
 }

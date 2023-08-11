@@ -1,19 +1,20 @@
 package com.decimal.rbac.service.pg;
 
-import com.decimal.rbac.constants.ErrorMessage;
-import com.decimal.rbac.exceptions.BadRequestException;
+import com.decimal.rbac.constants.IntegrityErrorUtil;
+import com.decimal.rbac.exceptions.AuthenticationFailedException;
 import com.decimal.rbac.exceptions.NotFoundException;
-import com.decimal.rbac.model.dtos.ListUserResponse;
-import com.decimal.rbac.model.dtos.Pagination;
+import com.decimal.rbac.model.dtos.BridgeUtil;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.entities.User;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
 import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.repositories.UserRepository;
 import com.decimal.rbac.service.UserService;
+import com.decimal.rbac.util.EncryptionUtil;
 import jakarta.transaction.Transactional;
-import org.hibernate.exception.ConstraintViolationException;
+import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,25 +23,17 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class UserServicePgImpl implements UserService {
 
     private final UserRepository userRepository;
-
-    public UserServicePgImpl(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDto addUser(AddUser user) {
         try {
             return userRepository.save(user.toDataModelObject()).toDto();
         } catch (DataIntegrityViolationException ex) {
-            String constraintName = ((ConstraintViolationException) ex.getCause()).getConstraintName();
-            if (ErrorMessage.INTEGRITY_CONSTRAINT_VIOLATION.containsKey(constraintName)) {
-                throw new BadRequestException(ErrorMessage.INTEGRITY_CONSTRAINT_VIOLATION.get(constraintName));
-            } else {
-                throw ex;
-            }
+            throw IntegrityErrorUtil.formatIntegrityExceptions(ex);
         }
     }
 
@@ -63,37 +56,15 @@ public class UserServicePgImpl implements UserService {
     }
 
     @Override
-    public ListUserResponse listAllUsers(Pageable pageable) {
+    public ListResponse<UserDto> listAllUsers(Pageable pageable) {
         Page<User> users = userRepository.findAll(pageable);
-        return ListUserResponse
-                .builder()
-                .users(users.map(User::toDto).toList())
-                .pagination(
-                        Pagination
-                                .builder()
-                                .totalPages(users.getTotalPages())
-                                .currentPage(users.getTotalElements())
-                                .elements(users.getTotalElements())
-                                .build()
-                ).build();
+        return BridgeUtil.buildPaginatedResponse(users);
     }
 
     @Override
-    public ListUserResponse getPaginated(Pageable pageable) {
-        ListUserResponse response = new ListUserResponse();
+    public ListResponse<UserDto> getPaginated(Pageable pageable) {
         Page<User> page = userRepository.findAll(pageable);
-        ListUserResponse
-                .builder()
-                .users(page.map(User::toDto).toList())
-                .pagination(
-                        Pagination
-                                .builder()
-                                .totalPages(page.getTotalPages())
-                                .currentPage(page.getTotalElements())
-                                .elements(page.getTotalElements())
-                                .build()
-                ).build();
-        return response;
+        return BridgeUtil.buildPaginatedResponse(page);
     }
 
     @Override
@@ -114,5 +85,17 @@ public class UserServicePgImpl implements UserService {
                         () -> new NotFoundException(String.format("User name %s does not exist", name))
                 )
                 .toDto();
+    }
+
+    @Override
+    public UserDto authenticate(String username, String password) {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new NotFoundException("No user found for the username: %s", username)
+        );
+        if(EncryptionUtil.verifyPassword(password, user.getPassword())){
+            return user.toDto();
+        } else {
+            throw new AuthenticationFailedException("Invalid Username/password");
+        }
     }
 }

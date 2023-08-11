@@ -2,10 +2,11 @@ package com.decimal.rbac.controller;
 
 import com.decimal.rbac.exceptions.BadRequestException;
 import com.decimal.rbac.exceptions.NotFoundException;
+import com.decimal.rbac.model.dtos.Pagination;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.rest.request.AddUser;
-import com.decimal.rbac.model.rest.response.ListUserResponse;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
@@ -48,12 +49,12 @@ public class UserControllerTest {
     @BeforeEach
     void setup() {
         this.users = new ArrayList<>();
-        UserDto.UserDtoBuilder builder = new UserDto.UserDtoBuilder();
+        UserDto.UserDtoBuilder builder = UserDto.builder();
         for (int i = 1; i <= 10; i++) {
             this.users.add(
-                    builder.withId(UUID.randomUUID())
-                            .withUserName("Name " + i)
-                            .withStatus(Status.ACTIVE)
+                    builder.id(UUID.randomUUID())
+                            .userName("Name " + i)
+                            .status(Status.ACTIVE)
                             .build()
             );
         }
@@ -61,20 +62,23 @@ public class UserControllerTest {
 
     @Test
     void listAllUsersTest() throws Exception {
-        ListUserResponse expected = new ListUserResponse();
-        expected.setUsers(users);
-        expected.setPagination(Map.of("total",10));
+        ListResponse<UserDto> expected = ListResponse
+                .<UserDto>builder()
+                .data(users)
+                .pagination(
+                        Pagination.builder().totalPages(10).build()
+                )
+                .build();
         when(userService.getPaginated(any())).thenReturn(expected);
         String response = mockMvc.perform(
                         get("/users")
                 )
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
-        ListUserResponse listUsersResponse = mapper.readValue(response, ListUserResponse.class);
+        ListResponse listUsersResponse = mapper.readValue(response, ListResponse.class);
         verify(userService).getPaginated(any());
-        assert listUsersResponse.getUsers().size() == users.size();
-        assert listUsersResponse.getPagination().get("total") instanceof Integer;
-        assert ((int)listUsersResponse.getPagination().get("total")) == users.size();
+        assert listUsersResponse.getData().size() == users.size();
+        assert listUsersResponse.getPagination().getTotalPages() == users.size();
     }
 
     @Test
@@ -97,7 +101,7 @@ public class UserControllerTest {
     @Test
     void findUserByIdNotFoundTest() throws Exception {
         UUID id = this.users.get(3).getId();
-        when(userService.findUserById(any())).thenThrow(NotFoundException.class);
+        when(userService.findUserById(any())).thenThrow(new NotFoundException("Test"));
         mockMvc.perform(
                         get("/users/_byId/{id}",id)
                 )
@@ -125,7 +129,7 @@ public class UserControllerTest {
     @Test
     void findUserByUsernameNotFoundTest() throws Exception {
         UUID id = this.users.get(3).getId();
-        when(userService.findUserByUsername(any())).thenThrow(NotFoundException.class);
+        when(userService.findUserByUsername(any())).thenThrow(new NotFoundException("Test"));
         mockMvc.perform(
                         get("/users/_byUsername/{id}",id)
                 )

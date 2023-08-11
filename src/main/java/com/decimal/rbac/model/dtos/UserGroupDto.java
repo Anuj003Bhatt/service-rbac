@@ -18,14 +18,4 @@ public class UserGroupDto {
     private String name;
     private String description;
     private List<RoleDto> groupRoles;
-
-    public UserGroup toDataModelObject() {
-        return new UserGroup(
-                id,
-                name,
-                description,
-                null,
-                (groupRoles!=null)?groupRoles.stream().map(RoleDto::toDataModelObject).toList():null
-        );
-    }
 }

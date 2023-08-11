@@ -1,12 +1,14 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.UserDto;
-import com.decimal.rbac.model.dtos.ListUserResponse;
 import com.decimal.rbac.model.rest.request.AddUser;
+import com.decimal.rbac.model.rest.request.UserAuthenticationRequest;
+import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -41,7 +43,7 @@ public class UsersController {
             @ApiResponse(responseCode = "200", description = "Found user by ID"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    public ListUserResponse getUsersPage(
+    public ListResponse<UserDto> getUsersPage(
             @PageableDefault(size = 20)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "id", direction = Sort.Direction.ASC)
@@ -113,6 +115,19 @@ public class UsersController {
         userService.enableUser(id);
         return Map.of("message",String.format("User %s has been enabled", id));
     }
+
+    @PostMapping("authenticate")
+    @Operation(summary = "Authenticate a user by username and password")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Authentication successful"),
+            @ApiResponse(responseCode = "401", description = "Authentication failed")
+    })
+    public UserDto authenticate(
+            @RequestBody @Valid UserAuthenticationRequest request
+    ) {
+        return userService.authenticate(request.getUserName(), request.getPassword());
+    }
+
 
 
 }

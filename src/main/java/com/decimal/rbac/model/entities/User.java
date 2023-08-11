@@ -1,5 +1,6 @@
 package com.decimal.rbac.model.entities;
 
+import com.decimal.rbac.model.dtos.DtoBridge;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.enums.Status;
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,16 +32,21 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "PLATFORM_USERS")
+@Table(
+        name = "PLATFORM_USERS",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "platform_users_username_key",  columnNames = {"username"})
+        }
+)
 @Builder
-public class User {
+public class User implements DtoBridge<UserDto> {
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "username", unique = true)
+    @Column(name = "username")
     private String username;
 
     @Column(name = "status")
@@ -82,15 +89,22 @@ public class User {
         this.userRoles.add(role);
     }
 
+    @Override
     public UserDto toDto() {
 
-        return UserDto.builder()
+        UserDto.UserDtoBuilder builder = UserDto.builder()
                 .userName(username)
                 .id(id)
-                .status(status)
-                .roles(userRoles.stream().map(Role::toDto).toList())
-                .userGroups(userGroups.stream().map(g -> Map.of("id", g.getId().toString(), "name", g.getName())).toList())
-                .roleGroups(roleGroups.stream().map(g -> Map.of("id", g.getId().toString(), "name", g.getName())).toList())
-                .build();
+                .status(status);
+        if (null != userRoles) {
+            builder.roles(userRoles.stream().map(Role::toDto).toList());
+        }
+        if (null != userGroups) {
+            builder.userGroups(userGroups.stream().map(g -> Map.of("id", g.getId().toString(), "name", g.getName())).toList());
+        }
+        if (null != roleGroups) {
+            builder.roleGroups(roleGroups.stream().map(g -> Map.of("id", g.getId().toString(), "name", g.getName())).toList());
+        }
+        return builder.build();
     }
 }
