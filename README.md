@@ -8,6 +8,7 @@ Using this repository one can achieve the following:
 ### Users
 - Create a User (Encryption using a random generated salt is also in place)
 - Authenticate a user by username and password
+  - This will return a JWT containing basic assignment information that can be used for authorization 
 - Create user groups and add multiple users to those groups
 - List users in the system (Paginated)
 - Find users, user groups by their IDs
@@ -73,5 +74,5 @@ Before setting up the system one must have below things installed on their syste
 ## API Snapshots from Postman:
 <img width="1342" alt="image" src="https://github.com/Anuj003Bhatt/service-rbac/assets/34508608/d63dc56a-5029-4827-ae3a-2a2e6ff6f84e">
 
-## Potman collection
+## Postman collection
 For ease of working with the repo a postman collection has been added [here](https://github.com/Anuj003Bhatt/service-rbac/blob/main/docs/RBAC.postman_collection.json)

@@ -7,6 +7,7 @@ import com.decimal.rbac.model.rest.request.AddUserGroup;
 import com.decimal.rbac.model.rest.request.UserAuthenticationRequest;
 import com.decimal.rbac.model.rest.response.ListResponse;
 import com.decimal.rbac.service.UserService;
+import com.decimal.rbac.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -119,15 +120,16 @@ public class UsersController {
     }
 
     @PostMapping("authenticate")
-    @Operation(summary = "Authenticate a user by username and password")
+    @Operation(summary = "Authenticate a user by username and password and return a JWT")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Authentication successful"),
             @ApiResponse(responseCode = "401", description = "Authentication failed")
     })
-    public UserDto authenticate(
+    public Map<String, String> authenticate(
             @RequestBody @Valid UserAuthenticationRequest request
     ) {
-        return userService.authenticate(request.getUserName(), request.getPassword());
+        String jwt = JwtUtil.generateToken(userService.authenticate(request.getUserName(), request.getPassword()));
+        return Map.of("jwt", jwt);
     }
 
     @PostMapping("groups")
