@@ -2,6 +2,7 @@ package com.decimal.rbac.controller;
 
 import com.decimal.rbac.service.RoleAssignmentService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @RequestMapping("assignments")
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class AssignmentController {
 
     private final RoleAssignmentService roleAssignmentService;
