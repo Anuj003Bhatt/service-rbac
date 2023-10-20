@@ -104,7 +104,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userName\": \"abc\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"userName\": \"user1\",\n    \"password\": \"password\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,6 +304,24 @@
 								"users",
 								"{{userId}}",
 								"disable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List User Groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{applicationUrl}}/users/groups",
+							"host": [
+								"{{applicationUrl}}"
+							],
+							"path": [
+								"users",
+								"groups"
 							]
 						}
 					},

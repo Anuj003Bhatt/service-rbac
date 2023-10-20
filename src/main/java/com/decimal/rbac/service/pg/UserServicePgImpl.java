@@ -7,6 +7,7 @@ import com.decimal.rbac.model.dtos.BridgeUtil;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.entities.User;
+import com.decimal.rbac.model.entities.UserGroup;
 import com.decimal.rbac.model.enums.Status;
 import com.decimal.rbac.model.projections.UserId;
 import com.decimal.rbac.model.rest.request.AddUser;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -117,5 +119,11 @@ public class UserServicePgImpl implements UserService {
         return userGroupRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("No user group found for ID %s", id)
         ).toDto();
+    }
+
+    @Override
+    public ListResponse<UserGroupDto> getUserGroupsPaginated(Pageable pageable) {
+        Page<UserGroup> groups = userGroupRepository.findAll(pageable);
+        return BridgeUtil.buildPaginatedResponse(groups);
     }
 }

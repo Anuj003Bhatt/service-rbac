@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 @AllArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsersController {
 
     private final UserService userService;
@@ -153,5 +155,19 @@ public class UsersController {
             @PathVariable("id") UUID id
     ) {
         return userService.getUserGroupById(id);
+    }
+
+    @GetMapping("groups")
+    @Operation(summary = "List User groups")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User Group created successfully")
+    })
+    public ListResponse<UserGroupDto> getUserGroups(
+            @PageableDefault(size = 20)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+            }) Pageable pageable
+    ) {
+        return userService.getUserGroupsPaginated(pageable);
     }
 }
