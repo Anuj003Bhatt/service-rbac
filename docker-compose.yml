@@ -1,15 +1,33 @@
 version: '3.8'
 services:
-  pg_container:
-    container_name: pg_container
+  postgres_database:
+    container_name: postgres_database
     image: postgres
     restart: always
+    volumes:
+      - pgData:/var/lib/postgresql/data
     environment:
+      POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: postgres
     ports:
       - "5432:5432"
+    healthcheck:
+      test: "exit 0"
+    networks:
+      - appNet
+  pg_admin:
+    container_name: pgadmin4-server
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      postgres_database:
+        condition: service_healthy
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80"
     networks:
       - appNet
     volumes:

@@ -1,10 +1,14 @@
 package com.decimal.rbac.util;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -16,6 +20,7 @@ import java.util.stream.Stream;
 @Slf4j
 public abstract class EncryptionUtil {
     private static final Integer ITERATIONS = 1000;
+    private static final String SECRET = "ThisIsATestSecret";
     private static final String CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static final SecretKeyFactory KEY_FACTORY;
@@ -31,6 +36,44 @@ public abstract class EncryptionUtil {
             KEY_FACTORY = SecretKeyFactory.getInstance(ENCRYPTION_ALGORITHM);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Unable to load EncryptionUtil, failed to get dependency 'SecretKeyFactory'");
+        }
+    }
+
+    private static SecretKeySpec prepareSecreteKey() {
+        MessageDigest sha = null;
+        try {
+            byte[] key = SECRET.getBytes(StandardCharsets.UTF_8);
+            sha = MessageDigest.getInstance("SHA-1");
+            key = sha.digest(key);
+            key = Arrays.copyOf(key, 16);
+            return new SecretKeySpec(key, "AES");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Could not prepare secret");
+        }
+
+    }
+
+    public static String encryptWithSecret(String originalString) {
+        try {
+            SecretKeySpec secretKey = prepareSecreteKey();
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            return Base64.getEncoder().encodeToString(cipher.doFinal(originalString.getBytes("UTF-8")));
+        } catch (Exception e) {
+            log.error("Could not encrypt provided string. Error: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String decryptWithSecret(String encryptedString) {
+        try {
+            SecretKeySpec secretKey = prepareSecreteKey();
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            return new String(cipher.doFinal(Base64.getDecoder().decode(encryptedString)));
+        } catch (Exception e) {
+            log.error("Could not decrypt provided string. Error: {}", e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

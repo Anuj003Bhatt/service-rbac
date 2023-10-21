@@ -3,7 +3,9 @@ package com.decimal.rbac.model.entities;
 import com.decimal.rbac.model.dtos.DtoBridge;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.enums.Status;
+import com.decimal.rbac.util.SecretStringEncryptor;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,7 +37,9 @@ import java.util.UUID;
 @Table(
         name = "PLATFORM_USERS",
         uniqueConstraints = {
-                @UniqueConstraint(name = "platform_users_username_key",  columnNames = {"username"})
+                @UniqueConstraint(name = "platform_users_username_key",  columnNames = {"username"}),
+                @UniqueConstraint(name = "platform_users_email",  columnNames = {"email"}),
+                @UniqueConstraint(name = "platform_users_phone",  columnNames = {"phone"})
         }
 )
 @Builder
@@ -45,6 +49,17 @@ public class User implements DtoBridge<UserDto> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @UuidGenerator
     private UUID id;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    @Convert(converter = SecretStringEncryptor.class)
+    private String email;
+
+    @Column(name = "phone")
+    @Convert(converter = SecretStringEncryptor.class)
+    private String phone;
 
     @Column(name = "username")
     private String username;
@@ -94,6 +109,9 @@ public class User implements DtoBridge<UserDto> {
 
         UserDto.UserDtoBuilder builder = UserDto.builder()
                 .userName(username)
+                .name(name)
+                .email(email)
+                .phone(phone)
                 .id(id)
                 .status(status);
         if (null != userRoles) {

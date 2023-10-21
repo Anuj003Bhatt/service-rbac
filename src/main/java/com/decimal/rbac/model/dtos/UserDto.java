@@ -24,6 +24,9 @@ public class UserDto {
     private String userName;
     private UUID id;
     private Status status;
+    private String name;
+    private String email;
+    private String phone;
     private List<RoleDto> roles;
     private List<Map<String, String>> userGroups;
     private List<Map<String, String>> roleGroups;
