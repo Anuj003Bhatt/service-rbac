@@ -126,4 +126,10 @@ public class UserServicePgImpl implements UserService {
         Page<UserGroup> groups = userGroupRepository.findAll(pageable);
         return BridgeUtil.buildPaginatedResponse(groups);
     }
+
+    @Override
+    public ListResponse<UserDto> listUsersInGroup(UUID id) {
+        List<User> users = userRepository.findAllByUserGroups_Id(id);
+        return BridgeUtil.buildResponse(users);
+    }
 }

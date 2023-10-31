@@ -36,4 +36,6 @@ public interface UserService {
     UserGroupDto getUserGroupById(UUID id);
 
     ListResponse<UserGroupDto> getUserGroupsPaginated(Pageable pageable);
+
+    ListResponse<UserDto> listUsersInGroup(UUID id);
 }

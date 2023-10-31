@@ -170,4 +170,15 @@ public class UsersController {
     ) {
         return userService.getUserGroupsPaginated(pageable);
     }
+
+    @GetMapping("_byGroup/{id}")
+    @Operation(summary = "List Users in a group")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "User Group created successfully")
+    })
+    public ListResponse<UserDto> getUserGroups(
+            @PathVariable("id") UUID id
+    ) {
+        return userService.listUsersInGroup(id);
+    }
 }

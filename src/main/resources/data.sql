@@ -1,151 +1,130 @@
-INSERT INTO
-PLATFORM_USERS(user_id, username, password) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'user1', 'password1'),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'user2', 'password2'),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'user3', 'password3'),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'user4', 'password4'),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'user5', 'password5'),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'user6', 'password6'),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'user7', 'password7'),
-('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID, 'user8', 'password8');
+--
+-- PostgreSQL database dump
+--
 
-INSERT INTO
-ROLES(role_id, role_name, description) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'ROLE 1', 'ROLE 1 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'ROLE 2', 'ROLE 2 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'ROLE 3', 'ROLE 3 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'ROLE 4', 'ROLE 4 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'ROLE 5', 'ROLE 5 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'ROLE 6', 'ROLE 6 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'ROLE 7', 'ROLE 7 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID, 'ROLE 8', 'ROLE 8 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b38'::UUID, 'ROLE 9', 'ROLE 9 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b39'::UUID, 'ROLE 10', 'ROLE 10 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID, 'ROLE 11', 'ROLE 11 DESCRIPTION'),
-('efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID, 'ROLE 12', 'ROLE 12 DESCRIPTION');
+-- Dumped from database version 16.0 (Debian 16.0-1.pgdg120+1)
+-- Dumped by pg_dump version 16.0
 
-INSERT INTO
-PERMISSIONS(permission_id, permission_name, access_type, description) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'PERMISSION 1', 'C', 'PERMISSION 1 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'PERMISSION 2', 'R', 'PERMISSION 2 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'PERMISSION 3', 'U', 'PERMISSION 3 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'PERMISSION 4', 'D', 'PERMISSION 4 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'PERMISSION 5', 'C', 'PERMISSION 5 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'PERMISSION 6', 'R', 'PERMISSION 6 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'PERMISSION 7', 'U', 'PERMISSION 7 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID, 'PERMISSION 8', 'D', 'PERMISSION 8 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b38'::UUID, 'PERMISSION 9', 'C', 'PERMISSION 9 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b39'::UUID, 'PERMISSION 10', 'R', 'PERMISSION 10 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID, 'PERMISSION 11', 'U', 'PERMISSION 11 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID, 'PERMISSION 12', 'D', 'PERMISSION 12 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b3c'::UUID, 'PERMISSION 13', 'C', 'PERMISSION 13 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b3d'::UUID, 'PERMISSION 14', 'R', 'PERMISSION 14 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b40'::UUID, 'PERMISSION 15', 'U', 'PERMISSION 15 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b41'::UUID, 'PERMISSION 16', 'D', 'PERMISSION 16 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b42'::UUID, 'PERMISSION 17', 'C', 'PERMISSION 17 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b43'::UUID, 'PERMISSION 18', 'R', 'PERMISSION 18 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b44'::UUID, 'PERMISSION 19', 'U', 'PERMISSION 19 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b45'::UUID, 'PERMISSION 20', 'D', 'PERMISSION 20 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b46'::UUID, 'PERMISSION 21', 'C', 'PERMISSION 21 Description Text');
+-- Started on 2023-10-31 10:26:48 UTC
 
-INSERT INTO ROLE_PERMISSION_ASSOCIATIONS(ROLE_ID,PERMISSION_ID) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b38'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b39'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3c'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3d'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b41'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b42'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b43'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b44'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b45'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID);
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
 
--- USER1: ROLE 1, ROLE 10
--- USER2: ROLE 3, ROLE 9
--- USER3: ROLE 1
--- USER4: ROLE 2, ROLE 12
--- USER5: ROLE 4, ROLE 5
--- USER6: ROLE 1, ROLE 2, ROLE 4, ROLE 5
--- USER7: ROLE 6, ROLE 7, ROLE 8
-INSERT INTO USER_ROLES(USER_ID, ROLE_ID) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b39'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b38'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID);
+--
+-- TOC entry 3415 (class 0 OID 16388)
+-- Dependencies: 215
+-- Data for Name: permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
 
-INSERT INTO USER_GROUPS(USER_GROUP_ID, USER_GROUP_NAME, DESCRIPTION) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'GROUP 1', 'GROUP 1 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'GROUP 2', 'GROUP 2 Description Text'),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'GROUP 3', 'GROUP 3 Description Text');
+INSERT INTO public.permissions VALUES ('9cee0dd0-a439-4217-aaa4-2b84cb2b6f27', 'C', 'Rule a kingdom', 'Rule');
+INSERT INTO public.permissions VALUES ('5c8e77d7-46d1-4369-bffe-5e069e3af8f7', 'C', 'Declare a war', 'War');
+INSERT INTO public.permissions VALUES ('8ea4ebd5-df7f-40b1-b1f7-b9741300f006', 'R', 'Fight a war', 'Fight in war');
+INSERT INTO public.permissions VALUES ('f9b5026e-3b3f-40c6-9667-54082670bcca', 'C', 'Advise king or queen', 'Advise');
 
--- GROUP1: USER1, USER2
--- GROUP2: USER3, USER4, USER5
--- GROUP3: USER6
-INSERT INTO USER_GROUP_USERS(USER_GROUP_ID, USER_ID) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID, 'efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID);
 
--- ROLE 1 - PERMISSION 1, 2, 3
--- ROLE 2 - PERMISSION 1, 5, 7
--- ROLE 3 - PERMISSION 4, 12, 20
--- ROLE 4 - PERMISSION 6, 8, 9
--- ROLE 5 - PERMISSION 10, 11, 12
--- ROLE 6 - PERMISSION 13, 14, 15
--- ROLE 7 - PERMISSION 16, 5, 17, 18, 19, 20
-INSERT INTO ROLE_PERMISSION_ASSOCIATIONS(ROLE_ID, PERMISSION_ID) VALUES
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b30'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b31'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b32'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b45'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b37'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b33'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b38'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b39'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3a'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3b'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3c'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b3d'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b35'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b40'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b41'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b34'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b42'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b43'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b44'::UUID),
-('efb15e8f-0caa-48fe-a058-f4c116836b36'::UUID,'efb15e8f-0caa-48fe-a058-f4c116836b45'::UUID);
+--
+-- TOC entry 3416 (class 0 OID 16395)
+-- Dependencies: 216
+-- Data for Name: platform_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.platform_users VALUES ('4d516d92-6f8f-451c-bb9d-35946b6c44e9', 'bqiWpuUlT0ZpPzuue2JqppNty0WynHB4P42Jskb+7P0=', 'Jon Snow', '{"salt": "java.util.stream.SliceOps$1@3a373456", "value": "aVtUPBDnWrWphUJ4JN76CkAMhcYiDYcqxyxx6F2/2HE="}', '0/mbBxfKAa4yyomWMEzGCA==', true, 'jon.snow');
+INSERT INTO public.platform_users VALUES ('6f8c3b59-7e5d-4900-b25b-fb186d210ffc', 'GyJ9gmMsrAiZiW8dHhw9dzUfr2heZZB1HxEEl88QQ/E=', 'Sansa Stark', '{"salt": "java.util.stream.SliceOps$1@480e48d5", "value": "oDv9TS4OsEQ0K4YX7SDZU4hwX4cZj0adXrkcYTzv5EI="}', 'dNKhe96/cZASQ5pnDPDNUw==', true, 'sansa.stark');
+INSERT INTO public.platform_users VALUES ('b7129331-be6b-4a74-b6c8-e2acef9ba721', 'SAd3bFSVQd8LKzbd0hFV9odLVOyQjHzSrSb0WkHKpus=', 'Arya Stark', '{"salt": "java.util.stream.SliceOps$1@2bd9829c", "value": "s5pex7JeIhoLll5uKqEaZ+jwVlYU4TZFMVv5ZvzDWSo="}', 'acs6ic83Jq0Wxl5hy79npg==', true, 'arya.stark');
+INSERT INTO public.platform_users VALUES ('aadce704-9fee-4353-aadf-1548032fa746', 'Q+EN7sqGq90P5OdOn2xA3KVJ36QBR63WEvgUYkjyu0E=', 'Daenerys Targaryen', '{"salt": "java.util.stream.SliceOps$1@24e4e22b", "value": "qchFNchrveCsJgGG2jB6gRtAR+Z0uCbJV6AUAY6C0S0="}', '4opjTcUetQhZVFLS7U/wMQ==', true, 'daenerys.targaryen');
+INSERT INTO public.platform_users VALUES ('268046a8-fed3-496f-adf8-cde57677de04', 'lsXyT7E4L2P89mhJqLT5DfYbsPP6IPu4C5bkrR+nGAU=', 'Cersei Lannister', '{"salt": "java.util.stream.SliceOps$1@4b587386", "value": "Qe9U7FiZh1P6XWgZ5/xF3V2xtLoJH0Sd9kN3+Zu7f3c="}', 'Y/7v5RuRvrUx1PVuYYPsMQ==', true, 'cersei.lannister');
+INSERT INTO public.platform_users VALUES ('63d0ee98-5a5d-486f-8cf4-9cee13d67cb9', 'ErIK8EwgSeWgikahNWyBsPYbsPP6IPu4C5bkrR+nGAU=', 'Tyrion Lannister', '{"salt": "java.util.stream.SliceOps$1@1fe09194", "value": "QnUXd8fuYS2fxACG2d3BxjTS6UvJ5uDhHhmaMz2nAYU="}', 'E66tqUy5qDwye1/P0lZ6xQ==', true, 'tyrion.lannister');
+
+
+--
+-- TOC entry 3418 (class 0 OID 16405)
+-- Dependencies: 218
+-- Data for Name: role_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3420 (class 0 OID 16415)
+-- Dependencies: 220
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.roles VALUES ('cb49f08d-04c7-4f01-88c7-3efaec9519f2', 'King of Winterfell', 'King in the North');
+INSERT INTO public.roles VALUES ('89039cd4-644b-46f3-93c7-8b6d5371f25a', 'Queen at King''s Landing', 'Queen of Seven Kingdoms');
+INSERT INTO public.roles VALUES ('6129ae17-1d93-4e76-ab57-91304437ab55', 'Hand of the Queen', 'Hand of the Queen');
+
+
+--
+-- TOC entry 3417 (class 0 OID 16402)
+-- Dependencies: 217
+-- Data for Name: role_group_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3419 (class 0 OID 16412)
+-- Dependencies: 219
+-- Data for Name: role_permission_associations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3423 (class 0 OID 16428)
+-- Dependencies: 223
+-- Data for Name: user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.user_groups VALUES ('f931bfbd-0d30-42e5-b327-839d68cb1a2a', 'Starks of Winterfell', 'Starks');
+INSERT INTO public.user_groups VALUES ('f4d24577-83d7-4ff1-8dad-56c3d0808697', 'Lannisters of Casterly Rock', 'Lannisters');
+INSERT INTO public.user_groups VALUES ('23020673-3025-4f7c-a965-d3cfa219d0a1', 'Targaryens of king''s landing', 'Targaryens');
+
+
+--
+-- TOC entry 3421 (class 0 OID 16422)
+-- Dependencies: 221
+-- Data for Name: user_group_role_associations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3422 (class 0 OID 16425)
+-- Dependencies: 222
+-- Data for Name: user_group_users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3424 (class 0 OID 16435)
+-- Dependencies: 224
+-- Data for Name: user_role_group_associations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3425 (class 0 OID 16438)
+-- Dependencies: 225
+-- Data for Name: user_roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+-- Completed on 2023-10-31 10:26:48 UTC
+
+--
+-- PostgreSQL database dump complete
+--
 
