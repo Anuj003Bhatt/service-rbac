@@ -14,6 +14,8 @@ public interface RoleService {
 
     ListResponse<RoleDto> getAllRoles(Pageable pageable);
 
+    ListResponse<RoleGroupDto> getRoleAllGroupsPaginated(Pageable pageable);
+
     RoleDto getRoleById(UUID id);
 
     ListResponse<RoleDto> searchRoleByName(String name, Pageable pageable);
@@ -23,4 +25,6 @@ public interface RoleService {
     RoleGroupDto addRoleGroup(AddRoleGroup roleGroup);
 
     RoleGroupDto getRoleGroupById(UUID id);
+
+    ListResponse<RoleDto> getRolesInRoleGroup(UUID id);
 }

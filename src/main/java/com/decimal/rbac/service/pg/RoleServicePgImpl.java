@@ -6,6 +6,7 @@ import com.decimal.rbac.model.dtos.BridgeUtil;
 import com.decimal.rbac.model.dtos.RoleDto;
 import com.decimal.rbac.model.dtos.RoleGroupDto;
 import com.decimal.rbac.model.entities.Role;
+import com.decimal.rbac.model.entities.RoleGroup;
 import com.decimal.rbac.model.rest.request.AddRole;
 import com.decimal.rbac.model.rest.request.AddRoleGroup;
 import com.decimal.rbac.model.rest.response.ListResponse;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,6 +33,12 @@ public class RoleServicePgImpl implements RoleService {
     public ListResponse<RoleDto> getAllRoles(Pageable pageable) {
         Page<Role> roles = roleRepository.findAll(pageable);
         return BridgeUtil.buildPaginatedResponse(roles);
+    }
+
+    @Override
+    public ListResponse<RoleGroupDto> getRoleAllGroupsPaginated(Pageable pageable) {
+        Page<RoleGroup> groups = roleGroupRepository.findAll(pageable);
+        return BridgeUtil.buildPaginatedResponse(groups);
     }
 
     @Override
@@ -69,5 +77,12 @@ public class RoleServicePgImpl implements RoleService {
         return roleGroupRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("No role group found for id: %s", id)
         ).toDto();
+    }
+
+    @Override
+    public ListResponse<RoleDto> getRolesInRoleGroup(UUID id) {
+        List<Role> roles = roleRepository.findAllByRoleGroups_Id(id);
+        return BridgeUtil.buildResponse(roles);
+
     }
 }

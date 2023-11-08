@@ -1,13 +1,106 @@
 {
 	"info": {
-		"_postman_id": "dcd2f1c5-43a4-47ca-9b59-3e956caf9022",
+		"_postman_id": "b76ab35b-506d-4d0d-a0c5-7cfd3da7a70d",
 		"name": "RBAC",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30663595"
 	},
 	"item": [
 		{
 			"name": "Users",
 			"item": [
+				{
+					"name": "User Groups",
+					"item": [
+						{
+							"name": "UserGroup by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{applicationUrl}}/users/groups/{{userGroupId}}",
+									"host": [
+										"{{applicationUrl}}"
+									],
+									"path": [
+										"users",
+										"groups",
+										"{{userGroupId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add User Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"pm.collectionVariables.set(\"userGroupId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"User Group 1\",\n    \"description\": \"This is a sample user group\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{applicationUrl}}/users/groups",
+									"host": [
+										"{{applicationUrl}}"
+									],
+									"path": [
+										"users",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List User Groups",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{applicationUrl}}/users/groups",
+									"host": [
+										"{{applicationUrl}}"
+									],
+									"path": [
+										"users",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "Add User",
 					"event": [
@@ -28,7 +121,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userName\": \"user1\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"userName\": \"user1\",\n    \"password\": \"password\",\n    \"name\" : \"John Doe\",\n    \"email\" : \"abc@xyz.com\",\n    \"phone\" : \"7970362511\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -42,45 +135,6 @@
 							],
 							"path": [
 								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add User Group",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"pm.collectionVariables.set(\"userGroupId\", jsonData.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"User Group 1\",\n    \"description\": \"This is a sample user group\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{applicationUrl}}/users/groups",
-							"host": [
-								"{{applicationUrl}}"
-							],
-							"path": [
-								"users",
-								"groups"
 							]
 						}
 					},
@@ -190,36 +244,6 @@
 					"response": []
 				},
 				{
-					"name": "UserGroup by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{applicationUrl}}/users/groups/{{userGroupId}}",
-							"host": [
-								"{{applicationUrl}}"
-							],
-							"path": [
-								"users",
-								"groups",
-								"{{userGroupId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "User By Username",
 					"event": [
 						{
@@ -310,20 +334,10 @@
 					"response": []
 				},
 				{
-					"name": "List User Groups",
+					"name": "List Users in a group",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{applicationUrl}}/users/groups",
-							"host": [
-								"{{applicationUrl}}"
-							],
-							"path": [
-								"users",
-								"groups"
-							]
-						}
+						"header": []
 					},
 					"response": []
 				}
@@ -332,6 +346,80 @@
 		{
 			"name": "Roles",
 			"item": [
+				{
+					"name": "Role Group",
+					"item": [
+						{
+							"name": "Add Role Group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"pm.collectionVariables.set(\"roleGroupId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Role Group 1\",\n    \"description\": \"This is a test role group\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{applicationUrl}}/roles/groups",
+									"host": [
+										"{{applicationUrl}}"
+									],
+									"path": [
+										"roles",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RoleGroup By ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{applicationUrl}}/roles/groups/{{roleGroupId}}",
+									"host": [
+										"{{applicationUrl}}"
+									],
+									"path": [
+										"roles",
+										"groups",
+										"{{roleGroupId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "Add Role",
 					"event": [
@@ -371,39 +459,19 @@
 					"response": []
 				},
 				{
-					"name": "Add Role Group",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"pm.collectionVariables.set(\"roleGroupId\", jsonData.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "List Roles in RoleGroup",
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"Role Group 1\",\n    \"description\": \"This is a test role group\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{applicationUrl}}/roles/groups",
+							"raw": "{{applicationUrl}}/roles/_byRoleGroup/{{roleGroupId}}",
 							"host": [
 								"{{applicationUrl}}"
 							],
 							"path": [
 								"roles",
-								"groups"
+								"_byRoleGroup",
+								"{{roleGroupId}}"
 							]
 						}
 					},
@@ -471,36 +539,6 @@
 							"path": [
 								"roles",
 								"{{roleId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RoleGroup By ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{applicationUrl}}/roles/groups/{{roleGroupId}}",
-							"host": [
-								"{{applicationUrl}}"
-							],
-							"path": [
-								"roles",
-								"groups",
-								"{{roleGroupId}}"
 							]
 						}
 					},

@@ -2,7 +2,6 @@ package com.decimal.rbac.controller;
 
 import com.decimal.rbac.model.dtos.RoleDto;
 import com.decimal.rbac.model.dtos.RoleGroupDto;
-import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.rest.request.AddRole;
 import com.decimal.rbac.model.rest.request.AddRoleGroup;
 import com.decimal.rbac.model.rest.response.ListResponse;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -88,6 +86,21 @@ public class RolesController {
         return roleService.searchRoleByName(name, pageable);
     }
 
+
+    @GetMapping("_byRoleGroup/{id}")
+    @Operation(summary = "List roles in a Role Group")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved roles in a role group")
+    })
+    public ListResponse<RoleDto> getRoleInRoleGroup(
+            @PathVariable("id") UUID id,
+            @PageableDefault(size = 20)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+            }) @Parameter(hidden = true) Pageable pageable) {
+        return roleService.getRolesInRoleGroup(id);
+    }
+
     @PostMapping("groups")
     @Operation(summary = "Create a role group")
     @ApiResponses({
@@ -104,9 +117,23 @@ public class RolesController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Role Group found")
     })
-    public RoleGroupDto getUserGroupById(
+    public RoleGroupDto getRoleGroupById(
             @PathVariable("id") UUID id
     ) {
         return roleService.getRoleGroupById(id);
+    }
+
+    @GetMapping("groups")
+    @Operation(summary = "Get a role group by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Role Group found")
+    })
+    public ListResponse<RoleGroupDto> listRoleGroups(
+            @PageableDefault(size = 20)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "id", direction = Sort.Direction.ASC)
+            }) Pageable pageable
+    ) {
+        return roleService.getRoleAllGroupsPaginated(pageable);
     }
 }
