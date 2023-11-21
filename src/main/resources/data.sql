@@ -2,23 +2,6 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.0 (Debian 16.0-1.pgdg120+1)
--- Dumped by pg_dump version 16.0
-
--- Started on 2023-11-06 08:42:11 UTC
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
 -- TOC entry 3415 (class 0 OID 16388)
 -- Dependencies: 215
 -- Data for Name: permissions; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -44,6 +27,7 @@ INSERT INTO public.platform_users VALUES ('268046a8-fed3-496f-adf8-cde57677de04'
 INSERT INTO public.platform_users VALUES ('63d0ee98-5a5d-486f-8cf4-9cee13d67cb9', 'ErIK8EwgSeWgikahNWyBsPYbsPP6IPu4C5bkrR+nGAU=', 'Tyrion Lannister', '{"salt": "java.util.stream.SliceOps$1@1fe09194", "value": "QnUXd8fuYS2fxACG2d3BxjTS6UvJ5uDhHhmaMz2nAYU="}', 'E66tqUy5qDwye1/P0lZ6xQ==', true, 'tyrion.lannister');
 INSERT INTO public.platform_users VALUES ('a983c029-b991-4415-bf46-50410f610849', 'UHjNOjo6+frJjMdwTgzijh7Dutkuc2Avayge+HBd+gY=', 'Eddard Stark', '{"salt": "java.util.stream.SliceOps$1@1d2a95ad", "value": "0UVyS4LbIuO0ULTXG1HJRYczgooCLBAi1BWFdQmBK90="}', 'CT4icihJ8B/TjK4qIvAfkQ==', true, 'eddard.stark');
 INSERT INTO public.platform_users VALUES ('90b2a88a-c7a6-4e25-bee3-f1e832c4f3d0', 'TL/DDRZmxOTRQl0WJ2Yxlh7Dutkuc2Avayge+HBd+gY=', 'Lyanna Stark', '{"salt": "java.util.stream.SliceOps$1@313b4359", "value": "GkZXUn3nv2MN5d4UIl57cZkQqWlRcvSM6WWfq05Cbz8="}', 'v0ODFbaCoAwgdZA1JlPCcA==', true, 'lyanna.stark');
+INSERT INTO public.platform_users VALUES ('96e02d4b-eaa7-465a-ab13-643eb7efaeb4', 'GevFeL876bcjJVfxbsTc+odLVOyQjHzSrSb0WkHKpus=', 'Bran Stark', '{"salt": "java.util.stream.SliceOps$1@565cb4a2", "value": "uXOpFfwJyjujPG2iXYPbN/5+caJD4svbwLYcduOv5nw="}', 'cNdmW4jhFJtxlB3Y1JQ5Wg==', true, 'bran.stark');
 
 
 --
@@ -52,6 +36,7 @@ INSERT INTO public.platform_users VALUES ('90b2a88a-c7a6-4e25-bee3-f1e832c4f3d0'
 -- Data for Name: role_groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO public.role_groups VALUES ('1347cdf2-81ad-4971-a52a-946c19770e43', 'RGT', 'Role Group Test');
 
 
 --
@@ -66,6 +51,10 @@ INSERT INTO public.roles VALUES ('6129ae17-1d93-4e76-ab57-91304437ab55', 'Hand o
 INSERT INTO public.roles VALUES ('320cb516-ef4c-484c-a808-e3a79ef9078f', 'Hand of the King', 'Hand of the King');
 INSERT INTO public.roles VALUES ('821167f2-4794-437e-9c35-5155fe2f331a', 'Lady of Winterfell', 'Lady of Winterfell');
 INSERT INTO public.roles VALUES ('e7645a4b-87a6-4cca-bdb0-e14390845069', 'Lord commander of the night''s watch', 'Lord Commander');
+INSERT INTO public.roles VALUES ('b63657de-69aa-4942-a337-1916f54bf6b8', 'King at King''s Landing', 'King of Seven Kingdoms');
+INSERT INTO public.roles VALUES ('26464a23-d8f2-4984-acba-a953216118bd', 'Maester to the Iron Throne and the Red Keep', 'Grand Maester');
+INSERT INTO public.roles VALUES ('79405e8d-fb83-428b-9585-722605eb79e3', 'Advisors to lords in the realm', 'Maester');
+INSERT INTO public.roles VALUES ('c540ea0a-d94b-4d99-9812-1871251c0385', 'Queen in Dothraki', 'Khaleesi');
 
 
 --
@@ -95,6 +84,8 @@ INSERT INTO public.user_groups VALUES ('f4d24577-83d7-4ff1-8dad-56c3d0808697', '
 INSERT INTO public.user_groups VALUES ('23020673-3025-4f7c-a965-d3cfa219d0a1', 'Targaryens of king''s landing', 'Targaryens');
 INSERT INTO public.user_groups VALUES ('622fb658-7f76-4353-bfbb-22e1134825ff', 'Tyrell', 'Tyrell');
 INSERT INTO public.user_groups VALUES ('0eaf7a9f-67ff-42d9-b941-e80e46f88fd2', 'Faceless Man at the House of Black and White', 'Faceless Man');
+INSERT INTO public.user_groups VALUES ('f252c0e7-7a67-4a22-b596-8d411c86efdb', 'Nomadic horse-mounted warriors in Essos, the continent to the east of Westeros across the Narrow Sea.', 'Dothraki');
+INSERT INTO public.user_groups VALUES ('97f5124e-bf7a-40f1-a04e-dd0c73d67c36', 'House Baratheon', 'Baratheon');
 
 
 --
@@ -115,6 +106,7 @@ INSERT INTO public.user_group_users VALUES ('f931bfbd-0d30-42e5-b327-839d68cb1a2
 INSERT INTO public.user_group_users VALUES ('f4d24577-83d7-4ff1-8dad-56c3d0808697', '268046a8-fed3-496f-adf8-cde57677de04');
 INSERT INTO public.user_group_users VALUES ('f4d24577-83d7-4ff1-8dad-56c3d0808697', '63d0ee98-5a5d-486f-8cf4-9cee13d67cb9');
 INSERT INTO public.user_group_users VALUES ('23020673-3025-4f7c-a965-d3cfa219d0a1', '4d516d92-6f8f-451c-bb9d-35946b6c44e9');
+INSERT INTO public.user_group_users VALUES ('23020673-3025-4f7c-a965-d3cfa219d0a1', 'aadce704-9fee-4353-aadf-1548032fa746');
 
 
 --
