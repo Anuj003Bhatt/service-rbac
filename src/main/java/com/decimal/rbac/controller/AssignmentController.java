@@ -1,6 +1,7 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.service.RoleAssignmentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Assignments")
 public class AssignmentController {
 
     private final RoleAssignmentService roleAssignmentService;

@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +33,7 @@ import java.util.UUID;
 @RequestMapping("roles")
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Roles")
 public class RolesController {
 
     private final RoleService roleService;

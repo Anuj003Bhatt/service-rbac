@@ -1,6 +1,7 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.exceptions.BadRequestException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -15,6 +16,7 @@ import java.nio.file.Files;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "API Documentation")
 public class ApiDocumentation {
     private static final String DOC_RESOURCE_FILE_PATH="classpath:ApiDoc.html";
     private final ResourceLoader resourceLoader;

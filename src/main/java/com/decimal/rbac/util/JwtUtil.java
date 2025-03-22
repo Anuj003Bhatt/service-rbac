@@ -36,7 +36,7 @@ public class JwtUtil {
                 .signWith(signatureAlgorithm, SECRET).compact();
     }
 
-    private static Claims extractAllClaims(String token) {
+    public static Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
     }
 

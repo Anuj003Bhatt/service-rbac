@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,6 +32,7 @@ import java.util.UUID;
 @RequestMapping("permissions")
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
+@Tag(name = "Permissions")
 public class PermissionsController {
     private final PermissionService permissionService;
 
