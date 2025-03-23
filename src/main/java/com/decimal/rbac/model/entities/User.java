@@ -50,9 +50,6 @@ public class User implements DtoBridge<UserDto> {
     @UuidGenerator
     private UUID id;
 
-    @Column(name = "name")
-    private String name;
-
     @Column(name = "email")
     @Convert(converter = SecretStringEncryptor.class)
     private String email;
@@ -109,7 +106,6 @@ public class User implements DtoBridge<UserDto> {
 
         UserDto.UserDtoBuilder builder = UserDto.builder()
                 .userName(username)
-                .name(name)
                 .email(email)
                 .phone(phone)
                 .id(id)

@@ -27,9 +27,6 @@ public class AddUser {
     @Size(min = 8, max = 50, message = "Password must be between 8-50 characters")
     private String password;
 
-    @NotEmpty(message = "User name cannot be empty")
-    private String name;
-
     @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     @NotEmpty(message = "Email cannot be empty")
     private String email;
@@ -43,7 +40,6 @@ public class AddUser {
     public User toDataModelObject() {
         return User.builder()
                 .username(userName)
-                .name(name)
                 .email(email)
                 .phone(phone)
                 .password(EncryptionUtil.encryptWithSalt(password))

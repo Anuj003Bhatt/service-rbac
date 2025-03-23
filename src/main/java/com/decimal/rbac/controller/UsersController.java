@@ -88,8 +88,8 @@ public class UsersController {
 
     @PostMapping
     @Operation(
-            summary = "Add new user",
-            description = "Create a new user for the platform"
+            summary = "Register/Add new user",
+            description = "Create/Register a new user for the platform"
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User added successfully")

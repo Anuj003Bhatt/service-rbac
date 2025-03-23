@@ -10,7 +10,6 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="platform_users_pkey"/>
             </column>
             <column name="email" type="VARCHAR(255)"/>
-            <column name="name" type="VARCHAR(255)"/>
             <column name="password" type="JSONB">
                 <constraints nullable="false"/>
             </column>
