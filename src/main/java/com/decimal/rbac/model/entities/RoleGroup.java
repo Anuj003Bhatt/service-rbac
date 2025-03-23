@@ -44,7 +44,7 @@ public class RoleGroup implements DtoBridge<RoleGroupDto> {
 
     @ManyToMany
     @JoinTable(
-            name = "ROLE_GROUP_ROLES",
+            name = "role_group_assignments",
             joinColumns = @JoinColumn(name = "role_group_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )

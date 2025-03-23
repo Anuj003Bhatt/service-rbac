@@ -1,0 +1,207 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- Main Entity Tables -->
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-1">
+        <createTable tableName="platform_users">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="platform_users_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="password" type="JSONB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="status" type="BOOLEAN"/>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-2">
+        <createTable tableName="roles">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="roles_pkey"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-3">
+        <addUniqueConstraint columnNames="email" constraintName="platform_users_email" tableName="platform_users"/>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-4">
+        <addUniqueConstraint columnNames="phone" constraintName="platform_users_phone" tableName="platform_users"/>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-5">
+        <addUniqueConstraint columnNames="username" constraintName="platform_users_username_key" tableName="platform_users"/>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-6">
+        <addUniqueConstraint columnNames="name" constraintName="unique_name_in_role" tableName="roles"/>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-7">
+        <createTable tableName="permissions">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="permissions_pkey"/>
+            </column>
+            <column name="access_type" type="CHAR(1)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-9">
+        <createTable tableName="role_groups">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="role_groups_pkey"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="anujnarayanbhatt (generated)" id="1742718970854-13">
+        <createTable tableName="user_groups">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_groups_pkey"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Junction Tables for Many-to-Many Relationships -->
+    <changeSet id="1742718970854-14" author="anujnarayanbhatt">
+        <createTable tableName="user_group_memberships">
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_group_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="user_group_memberships" columnNames="user_id, user_group_id"/>
+        <addForeignKeyConstraint baseTableName="user_group_memberships" baseColumnNames="user_id"
+                                 referencedTableName="platform_users" referencedColumnNames="id"
+                                 constraintName="fk_user_group_memberships_users"/>
+        <addForeignKeyConstraint baseTableName="user_group_memberships" baseColumnNames="user_group_id"
+                                 referencedTableName="user_groups" referencedColumnNames="id"
+                                 constraintName="fk_user_group_memberships_user_groups"/>
+    </changeSet>
+
+    <changeSet id="1742718970854-15" author="anujnarayanbhatt">
+        <createTable tableName="role_group_assignments">
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_group_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="role_group_assignments" columnNames="role_id, role_group_id"/>
+        <addForeignKeyConstraint baseTableName="role_group_assignments" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 constraintName="fk_role_group_assignments_roles"/>
+        <addForeignKeyConstraint baseTableName="role_group_assignments" baseColumnNames="role_group_id"
+                                 referencedTableName="role_groups" referencedColumnNames="id"
+                                 constraintName="fk_role_group_assignments_role_groups"/>
+    </changeSet>
+
+    <changeSet id="1742718970854-16" author="anujnarayanbhatt">
+        <createTable tableName="user_role_assignments">
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="user_role_assignments" columnNames="user_id, role_id"/>
+        <addForeignKeyConstraint baseTableName="user_role_assignments" baseColumnNames="user_id"
+                                 referencedTableName="platform_users" referencedColumnNames="id"
+                                 constraintName="fk_user_role_assignments_users"/>
+        <addForeignKeyConstraint baseTableName="user_role_assignments" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 constraintName="fk_user_role_assignments_roles"/>
+    </changeSet>
+
+    <changeSet id="1742718970854-17" author="anujnarayanbhatt">
+        <createTable tableName="user_role_group_assignments">
+            <column name="user_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_group_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="user_role_group_assignments" columnNames="user_id, role_group_id"/>
+        <addForeignKeyConstraint baseTableName="user_role_group_assignments" baseColumnNames="user_id"
+                                 referencedTableName="platform_users" referencedColumnNames="id"
+                                 constraintName="fk_user_role_group_assignments_users"/>
+        <addForeignKeyConstraint baseTableName="user_role_group_assignments" baseColumnNames="role_group_id"
+                                 referencedTableName="role_groups" referencedColumnNames="id"
+                                 constraintName="fk_user_role_group_assignments_role_groups"/>
+    </changeSet>
+
+    <changeSet id="1742718970854-18" author="anujnarayanbhatt">
+        <createTable tableName="user_group_role_assignments">
+            <column name="user_group_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="user_group_role_assignments" columnNames="user_group_id, role_id"/>
+        <addForeignKeyConstraint baseTableName="user_group_role_assignments" baseColumnNames="user_group_id"
+                                 referencedTableName="user_groups" referencedColumnNames="id"
+                                 constraintName="fk_user_group_role_assignments_user_groups"/>
+        <addForeignKeyConstraint baseTableName="user_group_role_assignments" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 constraintName="fk_user_group_role_assignments_roles"/>
+    </changeSet>
+
+    <changeSet id="1742718970854-19" author="anujnarayanbhatt">
+        <createTable tableName="user_group_role_group_assignments">
+            <column name="user_group_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_group_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="user_group_role_group_assignments" columnNames="user_group_id, role_group_id"/>
+        <addForeignKeyConstraint baseTableName="user_group_role_group_assignments" baseColumnNames="user_group_id"
+                                 referencedTableName="user_groups" referencedColumnNames="id"
+                                 constraintName="fk_user_group_role_group_assignments_user_groups"/>
+        <addForeignKeyConstraint baseTableName="user_group_role_group_assignments" baseColumnNames="role_group_id"
+                                 referencedTableName="role_groups" referencedColumnNames="id"
+                                 constraintName="fk_user_group_role_group_assignments_role_groups"/>
+    </changeSet>
+
+    <changeSet id="1742718970854-20" author="anujnarayanbhatt">
+        <createTable tableName="role_permission_assignments">
+            <column name="role_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="permission_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="role_permission_assignments" columnNames="role_id, permission_id"/>
+        <addForeignKeyConstraint baseTableName="role_permission_assignments" baseColumnNames="role_id"
+                                 referencedTableName="roles" referencedColumnNames="id"
+                                 constraintName="fk_role_permission_assignments_roles"/>
+        <addForeignKeyConstraint baseTableName="role_permission_assignments" baseColumnNames="permission_id"
+                                 referencedTableName="permissions" referencedColumnNames="id"
+                                 constraintName="fk_role_permission_assignments_permissions"/>
+    </changeSet>
+
+</databaseChangeLog>

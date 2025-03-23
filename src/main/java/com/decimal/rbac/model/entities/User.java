@@ -73,7 +73,7 @@ public class User implements DtoBridge<UserDto> {
 
     @ManyToMany
     @JoinTable(
-            name = "USER_ROLES",
+            name = "user_role_assignments",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
@@ -84,7 +84,7 @@ public class User implements DtoBridge<UserDto> {
 
     @ManyToMany
     @JoinTable(
-            name = "USER_ROLE_GROUP_ASSOCIATIONS",
+            name = "user_role_group_assignments",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_group_id")
     )

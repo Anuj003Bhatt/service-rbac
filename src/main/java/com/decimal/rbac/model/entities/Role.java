@@ -55,7 +55,7 @@ public class Role implements DtoBridge<RoleDto> {
 
     @ManyToMany
     @JoinTable(
-            name = "ROLE_PERMISSION_ASSOCIATIONS",
+            name = "role_permission_assignments",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
