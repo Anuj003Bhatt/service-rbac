@@ -1,6 +1,7 @@
 package com.decimal.rbac.controller;
 
 import com.decimal.rbac.exceptions.BadRequestException;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ public class ApiDocumentation {
     private String apiDocYamlPath;
 
     @GetMapping("documentation")
+    @Operation(hidden = true)
     public String getApiDocumentation(
             @RequestHeader String host
     ) {

@@ -1,5 +1,6 @@
 package com.decimal.rbac.controller;
 
+import com.decimal.rbac.config.OpenApiConfig;
 import com.decimal.rbac.model.dtos.RoleDto;
 import com.decimal.rbac.model.dtos.RoleGroupDto;
 import com.decimal.rbac.model.rest.request.AddRole;
@@ -33,7 +34,7 @@ import java.util.UUID;
 @RequestMapping("roles")
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
-@Tag(name = "Roles")
+@Tag(name = OpenApiConfig.ROLES_TAG)
 public class RolesController {
 
     private final RoleService roleService;

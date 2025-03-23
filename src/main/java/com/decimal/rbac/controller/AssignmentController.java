@@ -1,5 +1,6 @@
 package com.decimal.rbac.controller;
 
+import com.decimal.rbac.config.OpenApiConfig;
 import com.decimal.rbac.service.RoleAssignmentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
-@Tag(name = "Assignments")
+@Tag(name = OpenApiConfig.ASSIGNMENTS_TAG)
 public class AssignmentController {
 
     private final RoleAssignmentService roleAssignmentService;

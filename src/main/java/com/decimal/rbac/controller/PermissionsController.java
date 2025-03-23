@@ -1,5 +1,6 @@
 package com.decimal.rbac.controller;
 
+import com.decimal.rbac.config.OpenApiConfig;
 import com.decimal.rbac.model.enums.PermissionType;
 import com.decimal.rbac.model.dtos.PermissionDto;
 import com.decimal.rbac.model.rest.request.AddPermission;
@@ -32,7 +33,7 @@ import java.util.UUID;
 @RequestMapping("permissions")
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
-@Tag(name = "Permissions")
+@Tag(name = OpenApiConfig.PERMISSIONS_TAG)
 public class PermissionsController {
     private final PermissionService permissionService;
 

@@ -1,5 +1,6 @@
 package com.decimal.rbac.controller;
 
+import com.decimal.rbac.config.OpenApiConfig;
 import com.decimal.rbac.model.dtos.UserDto;
 import com.decimal.rbac.model.dtos.UserGroupDto;
 import com.decimal.rbac.model.rest.request.AddUser;
@@ -37,7 +38,7 @@ import java.util.UUID;
 @RequestMapping("/users")
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
-@Tag(name = "Users")
+@Tag(name = OpenApiConfig.USERS_TAG)
 public class UsersController {
 
     private final UserService userService;
