@@ -91,7 +91,7 @@ public class User implements DtoBridge<UserDto> {
         if (userRoles == null || userRoles.isEmpty()) {
             return false;
         }
-        return userRoles.stream().anyMatch(u -> u.getId() == role.getId());
+        return userRoles.stream().anyMatch(u -> u.getId().equals(role.getId()));
     }
 
     public void addRole(Role role) {
@@ -99,6 +99,12 @@ public class User implements DtoBridge<UserDto> {
             this.userRoles = new ArrayList<>();
         }
         this.userRoles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        if (userRoles != null && !userRoles.isEmpty()) {
+            userRoles = userRoles.stream().filter(u -> u.getId().equals(role.getId())).toList();
+        }
     }
 
     @Override

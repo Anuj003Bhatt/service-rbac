@@ -1,0 +1,31 @@
+Name,Description,Access_Type
+Manage_Treasury,Control kingdom finances and budget,Create
+View_Treasury,View financial records and reports,Read
+Update_Treasury_Records,Modify financial ledgers,Update
+Audit_Treasury,Conduct financial audits,Read
+Create_Laws,Draft new kingdom laws,Create
+Read_Laws,View existing laws and decrees,Read
+Update_Laws,Modify existing laws,Update
+Repeal_Laws,Remove outdated laws,Delete
+Command_Army,Lead military forces in battle,Create
+Deploy_Guards,Assign guards to locations,Update
+Disband_Army,Disperse military units,Delete
+View_Military_Reports,Access army status reports,Read
+Execute_Prisoners,Order executions of captives,Delete
+Imprison_Criminals,Order arrests and imprisonments,Create
+Release_Prisoners,Free prisoners from dungeons,Update
+Read_Reports,Access intelligence and spy reports,Read
+Send_Ravens,Send messages via ravens,Create
+Intercept_Ravens,Read incoming raven messages,Read
+Update_Treaties,Negotiate and modify treaties,Update
+Sign_Treaties,Formally agree to treaties,Create
+Break_Treaties,End existing treaties,Delete
+Manage_Castle,Oversee castle operations,Create
+View_Castle_Logs,Check castle activity logs,Read
+Update_Castle_Defenses,Improve castle fortifications,Update
+Appoint_Officials,Name new officials to posts,Create
+Remove_Officials,Dismiss officials from posts,Delete
+Read_Council_Minutes,View Small Council meeting notes,Read
+Schedule_Council,Arrange Small Council meetings,Create
+Train_Soldiers,Organize military training,Update
+Inspect_Fields,Review agricultural production,Read

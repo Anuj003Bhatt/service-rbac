@@ -55,7 +55,15 @@ public class UserGroup implements DtoBridge<UserGroupDto> {
             joinColumns = @JoinColumn(name = "user_group_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> rolesInGroup;
+    private List<Role> roles;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_group_role_group_assignments",
+            joinColumns = @JoinColumn(name = "user_group_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_group_id")
+    )
+    private List<RoleGroup> roleGroups;
 
     @Override
     public UserGroupDto toDto() {
@@ -63,7 +71,8 @@ public class UserGroup implements DtoBridge<UserGroupDto> {
                 id,
                 name,
                 description,
-                (rolesInGroup != null) ? rolesInGroup.stream().map(Role::toDto).toList() : null
+                (roles != null) ? roles.stream().map(Role::toDto).toList() : null,
+                (roleGroups != null) ? roleGroups.stream().map(RoleGroup::toDto).toList() : null
         );
     }
 }

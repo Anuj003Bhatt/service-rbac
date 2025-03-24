@@ -17,5 +17,6 @@ public class UserGroupDto {
     private UUID id;
     private String name;
     private String description;
-    private List<RoleDto> groupRoles;
+    private List<RoleDto> roles;
+    private List<RoleGroupDto> roleGroups;
 }
