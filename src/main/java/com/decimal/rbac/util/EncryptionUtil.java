@@ -15,6 +15,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -84,8 +85,11 @@ public abstract class EncryptionUtil {
      */
     private static String generateSalt() {
         return Stream.generate(
-                () -> CHARACTERS.charAt(SECURE_RANDOM.nextInt(CHARACTERS.length()))
-        ).limit(EncryptionUtil.SALT_LENGTH).toString();
+                        () -> CHARACTERS.charAt(SECURE_RANDOM.nextInt(CHARACTERS.length()))
+                )
+                .limit(SALT_LENGTH)
+                .map(String::valueOf)  // Convert each character to a String (important for joining)
+                .collect(Collectors.joining());
     }
 
     private static byte[] hash(String input, String salt) {
